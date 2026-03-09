@@ -1,13 +1,12 @@
 #include "Field.h"
 #include "Player.h"
-#include "Slime.h"
+#include "TaskManager.h"
+#include "EnemyManager.h"
 
 //--------------------------------------------
 //グローバル変数領域
 //--------------------------------------------
-Field* g_field = nullptr;	// フィールド画像のポインタ
-Player* g_player = nullptr;	// プレイヤーのポインタ
-Slime* g_slime = nullptr;	// スライムのポインタ
+
 
 void MainLoop()
 {
@@ -16,21 +15,13 @@ void MainLoop()
 	//ゲーム中はこの関数_を1秒間に60回呼び出している
 	//--------------------------------------------------------------
 
-	// プレイヤーとスライムの更新処理
-	g_player->Update();
-	g_slime->Update();
+	//タスクリストに登録されたタスクを全て更新
+	TaskManager::Instance()->Update();
 
-	// フィールド画像を描画
-	g_field->Render();
-	// 影を描画
-	g_player->RenderShadow();
-	g_slime->RenderShadow();
+	//タスクリストに登録されたタスクを全て描画
+	TaskManager::Instance()->Render();
 
-	// プレイヤーとスライムの描画処理
-	g_player->Render();
-	g_slime->Render();
-
-	// デバッグ文字の描画
+	//デバック文字の描画
 	DebugPrint::Render();
 }
 void Init()
@@ -69,15 +60,14 @@ void Init()
 	//-----------------------------------------------------
 
 	// フィールドを生成
-	g_field = new Field();
+	new Field();
 
 	// プレイヤーを生成
-	g_player = new Player(
+	new Player(
 		CVector3D(SCREEN_WIDTH * 0.5f, 0.0f, 0.0f));
 
-	// スライムを生成
-	g_slime = new Slime(SlimeType::Blue,
-		CVector3D(SCREEN_WIDTH * 0.75f,0.0f, 0.0f));
+	// エネミー管理クラスを生成
+	EnemyManager::Instance();
 }
 
 
@@ -87,6 +77,9 @@ void Release()
 	CLoadThread::ClearInstance();
 	CSound::ClearInstance();
 	CResourceManager::ClearInstance();
+
+	//タスクマネージャーを破棄して、全てタスク削除
+	TaskManager::ClearInstance();
 }
 
 static void ResizeCallback(GLFWwindow* window, int w, int h)

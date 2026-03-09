@@ -94,7 +94,8 @@ void Slime::StateDeath()
 			// アニメーションが終了したら、削除
 			if (mp_image->CheckAnimationEnd())
 			{
-				// TODO:削除処理
+				// 削除処理
+				Kill();
 			}
 			break;
 	}

@@ -1,7 +1,8 @@
 #pragma once
+#include "Task.h"
 
 // フィールドクラス
-class Field
+class Field : public Task
 {
 public:
 	// コンストラクタ
@@ -10,9 +11,9 @@ public:
 	~Field();
 
 	// 更新
-	virtual void Update();
+	void Update() override;
 	// 描画
-	virtual void Render();
+	void PreRender() override;
 
 protected:
 	CImage* mp_fieldImg;	// フィールドの画像

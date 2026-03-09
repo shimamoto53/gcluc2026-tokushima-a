@@ -1,7 +1,8 @@
 #pragma once
+#include "Task.h"
 
 // 全てのオブジェクトのベースクラス
-class ObjectBase
+class ObjectBase : public Task
 {
 public:
 	// コンストラクタ
@@ -22,10 +23,8 @@ public:
 	/// <returns>スクリーン座標</returns>
 	CVector2D CalcScreenPos(bool grounded = false) const;
 
-	// 更新
-	virtual void Update();
-	// 描画
-	virtual void Render();
+	// 前描画
+	void PreRender() override;
 
 	// 影描画
 	virtual void RenderShadow();

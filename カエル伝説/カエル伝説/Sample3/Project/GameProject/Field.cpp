@@ -2,7 +2,8 @@
 
 // コンストラクタ
 Field::Field()
-	: mp_fieldImg(nullptr)
+	: Task((int)ETaskPrio::Field)
+	, mp_fieldImg(nullptr)
 {
 	// フィールド画像を読み込み
 	mp_fieldImg = CImage::CreateImage("field.png");
@@ -25,7 +26,7 @@ void Field::Update()
 }
 
 // 描画
-void Field::Render()
+void Field::PreRender()
 {
 	// フィールドを描画
 	mp_fieldImg->Draw();

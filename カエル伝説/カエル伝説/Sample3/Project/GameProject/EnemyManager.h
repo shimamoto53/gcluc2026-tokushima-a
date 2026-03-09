@@ -1,9 +1,10 @@
 #pragma once
+#include "Task.h"
 
 class EnemyBase;
 
 // 敵管理クラス
-class EnemyManager
+class EnemyManager : public Task
 {
 public:
 	// インスタンス取得
@@ -18,7 +19,7 @@ public:
 	EnemyBase* GetNearEnemy(const CVector3D& pos, const CVector3D& range);
 
 	// 更新
-	void Update();
+	void Update() override;
 
 private:
 	// コンストラクタ

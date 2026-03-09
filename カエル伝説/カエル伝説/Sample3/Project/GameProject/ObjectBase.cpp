@@ -8,7 +8,8 @@ ObjectBase::ObjectBase()
 }
 
 ObjectBase::ObjectBase(const CVector3D& pos)
-	: m_pos(pos)
+	: Task((int)ETaskPrio::Object)
+	, m_pos(pos)
 	, m_isGrounded(true)
 	, mp_shadowImg(nullptr)
 {
@@ -64,14 +65,11 @@ CVector2D ObjectBase::CalcScreenPos(bool grounded) const
 	return ret;
 }
 
-// 更新
-void ObjectBase::Update()
+// 前描画
+void ObjectBase::PreRender()
 {
-}
-
-// 描画
-void ObjectBase::Render()
-{
+	//オブジェクトの影を描画
+	RenderShadow();
 }
 
 // 影描画

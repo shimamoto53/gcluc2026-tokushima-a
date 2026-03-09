@@ -10,6 +10,8 @@
     <ClCompile Include="EnemyBase.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="Field.cpp" />
+    <ClCompile Include="Task.cpp" />
+    <ClCompile Include="TaskManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Global.h" />
@@ -21,5 +23,7 @@
     <ClInclude Include="EnemyBase.h" />
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="Field.h" />
+    <ClInclude Include="Task.h" />
+    <ClInclude Include="TaskManager.h" />
   </ItemGroup>
 </Project>

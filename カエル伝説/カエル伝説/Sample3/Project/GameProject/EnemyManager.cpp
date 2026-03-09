@@ -13,7 +13,8 @@ EnemyManager* EnemyManager::ms_instance = nullptr;
 
 // コンストラクタ
 EnemyManager::EnemyManager()
-	: m_elapsedTime(0.0f)
+	: Task((int)ETaskPrio::Manager)
+	, m_elapsedTime(0.0f)
 {
 }
 
