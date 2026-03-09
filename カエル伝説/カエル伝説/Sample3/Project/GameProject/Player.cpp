@@ -11,6 +11,13 @@
 #define ATTACK_INDEX 2		// 攻撃が発生するアニメーションの番号
 #define ATTACK_RANGE CVector3D(300.0f, 10.0f, 50.0f)	// 攻撃範囲
 
+
+#define SPAWN_RANGE_MIN_X 100	// X軸の敵生成範囲の最小値
+#define SPAWN_RANGE_MAX_X (SCREEN_WIDTH - 100)	// X軸の敵生成範囲の最大値
+#define SPAWN_RANGE_MIN_Z -200	// Z軸の敵生成範囲の最小値
+#define SPAWN_RANGE_MAX_Z 100	// Z軸の敵生成範囲の最大値
+
+
 // プレイヤーのアニメーションデータの前宣言
 TexAnimData Player::ANIM_DATA[(int)EAnimType::Num] =
 {
@@ -96,37 +103,44 @@ void Player::ChangeState(EState state)
 bool Player::UpdateMove()
 {
 	bool isMove = false;
-	// 左キーを押している間
-	if (HOLD(CInput::eLeft))
-	{
-		// 左方向へ移動
-		m_pos.x -= MOVE_SPEED_X;
-		mp_image->SetFlipH(true);
-		isMove = true;
-	}
-	// 右キーを押している間
-	else if (HOLD(CInput::eRight))
-	{
-		// 右方向へ移動
-		m_pos.x += MOVE_SPEED_X;
-		mp_image->SetFlipH(false);
-		isMove = true;
-	}
-	// 上キーを押している間
-	if (HOLD(CInput::eUp))
-	{
-		// 奥方向へ移動
-		m_pos.z -= MOVE_SPEED_Z;
-		isMove = true;
-	}
-	// 下キーを押している間
-	else if (HOLD(CInput::eDown))
-	{
-		// 手前方向へ移動
-		m_pos.z += MOVE_SPEED_Z;
-		isMove = true;
-	}
+	
+		// 左キーを押している間
+		if (HOLD(CInput::eLeft))
+		{
+			// 左方向へ移動
+			m_pos.x -= MOVE_SPEED_X;
+			mp_image->SetFlipH(true);
+			isMove = true;
+		}
+		// 右キーを押している間
+		else if (HOLD(CInput::eRight))
+		{
+			// 右方向へ移動
+			m_pos.x += MOVE_SPEED_X;
+			mp_image->SetFlipH(false);
+			isMove = true;
+		}
+		// 上キーを押している間
+		if (HOLD(CInput::eUp))
+		{
+			// 奥方向へ移動
+			m_pos.z -= MOVE_SPEED_Z;
+			isMove = true;
+		}
+		// 下キーを押している間
+		else if (HOLD(CInput::eDown))
+		{
+			// 手前方向へ移動
+			m_pos.z += MOVE_SPEED_Z;
+			isMove = true;
+		}
+	
 
+		if (m_pos.x < SPAWN_RANGE_MIN_X) m_pos.x = SPAWN_RANGE_MIN_X;
+		if (m_pos.x > SPAWN_RANGE_MAX_X) m_pos.x = SPAWN_RANGE_MAX_X;
+		if (m_pos.z < SPAWN_RANGE_MIN_Z) m_pos.z = SPAWN_RANGE_MIN_Z;
+		if (m_pos.z > SPAWN_RANGE_MAX_Z) m_pos.z = SPAWN_RANGE_MAX_Z;
+		
 	return isMove;
 }
 

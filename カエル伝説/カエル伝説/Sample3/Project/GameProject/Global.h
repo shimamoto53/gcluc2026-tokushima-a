@@ -3,6 +3,6 @@
 #include <GLLibrary.h>
 #include "DebugPrint.h"
 //âÊñ ïù
-#define SCREEN_WIDTH 1280
+#define SCREEN_WIDTH 1920
 //âÊñ çÇÇ≥
-#define SCREEN_HEIGHT 720
+#define SCREEN_HEIGHT 1080
