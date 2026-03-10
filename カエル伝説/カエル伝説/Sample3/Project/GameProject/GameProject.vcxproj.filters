@@ -12,6 +12,8 @@
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="Task.cpp" />
     <ClCompile Include="TaskManager.cpp" />
+    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="Score.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Global.h" />
@@ -25,5 +27,7 @@
     <ClInclude Include="Field.h" />
     <ClInclude Include="Task.h" />
     <ClInclude Include="TaskManager.h" />
+    <ClInclude Include="Timer.h" />
+    <ClInclude Include="Score.h" />
   </ItemGroup>
 </Project>

@@ -1,4 +1,5 @@
 #include "Slime.h"
+#include "Score.h"
 
 #define CHIP_SIZE 256		// 1コマのサイズ
 #define CENTER_POS CVector2D(128.0f, 184.0f)	// 中心座標
@@ -30,7 +31,7 @@ Slime::Slime(SlimeType type, const CVector3D& pos)
 	, mp_image(nullptr)
 	, m_type(type)
 {
-	m_hp = 1;
+	m_hp = 100;
 
 	// スライムの画像を読み込み
 	std::string imagePath;
@@ -60,6 +61,8 @@ void Slime::Death()
 {
 	// 死亡状態へ移行
 	ChangeState(EState::Death);
+	//スコアを増やす
+	Score::Add(10);
 }
 
 // 現在の状態を切り替え

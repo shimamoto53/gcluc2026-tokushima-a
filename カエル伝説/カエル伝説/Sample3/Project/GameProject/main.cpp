@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "TaskManager.h"
 #include "EnemyManager.h"
+#include "Timer.h"
 
 //--------------------------------------------
 //グローバル変数領域
@@ -10,6 +11,17 @@
 
 void MainLoop()
 {
+	{
+		Timer::Update();   // ←ここでタイマー更新
+
+		char text[64];
+
+		DebugPrint::Print(
+			"TIME : %02d:%02d",
+			Timer::GetMinute(),
+			Timer::GetSecond()
+		);
+	}
 	//--------------------------------------------------------------
 	//ゲーム中の動きはここに書く
 	//ゲーム中はこの関数_を1秒間に60回呼び出している

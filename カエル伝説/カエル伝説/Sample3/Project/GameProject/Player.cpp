@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "EnemyManager.h"
 #include "EnemyBase.h"
+#include "Score.h"
 
 #define CHIP_SIZE 384		// 1コマのサイズ
 #define CENTER_POS CVector2D(192.0f, 328.0f)	// 中心座標
@@ -221,7 +222,16 @@ void Player::StateAttack()
 				EnemyBase* enemy = EnemyManager::Instance()->GetNearEnemy(m_pos, ATTACK_RANGE);
 				if (enemy != nullptr)
 				{
-					enemy->TakeDamage(100);
+					int score = Score::Get();
+
+					//パンチ
+					enemy->TakeDamage(50);
+
+					//スコアが50以上ならキック追加
+					if (score >= 50)
+					{
+						enemy->TakeDamage(100);
+					}
 				}
 				m_stateStep++;
 			}
@@ -286,6 +296,7 @@ void Player::Update()
 	mp_image->UpdateAnimation();
 
 	DebugPrint::Print("プレイヤー位置：%.2f, %.2f, %.2f", m_pos.x, m_pos.y, m_pos.z);
+	DebugPrint::Print("Score:%d", Score::Get());
 }
 
 // 描画処理
