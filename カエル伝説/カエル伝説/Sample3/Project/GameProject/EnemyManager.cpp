@@ -4,8 +4,8 @@
 
 #define SPAWN_COUNT 3			// 敵生成数
 #define SPAWN_INTERVAL 3.0f		// 敵を生成する間隔時間
-#define SPAWN_RANGE_MIN_X 100	// X軸の敵生成範囲の最小値
-#define SPAWN_RANGE_MAX_X (SCREEN_WIDTH - 100)	// X軸の敵生成範囲の最大値
+#define SPAWN_RANGE_MIN_X (SCREEN_WIDTH - 150)	// X軸の敵生成範囲の最小値
+#define SPAWN_RANGE_MAX_X (SCREEN_WIDTH - 50)	// X軸の敵生成範囲の最大値
 #define SPAWN_RANGE_MIN_Z -200	// Z軸の敵生成範囲の最小値
 #define SPAWN_RANGE_MAX_Z 100	// Z軸の敵生成範囲の最大値
 

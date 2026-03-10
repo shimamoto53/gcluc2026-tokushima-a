@@ -12,10 +12,10 @@
 #define ATTACK_RANGE CVector3D(300.0f, 10.0f, 50.0f)	// 攻撃範囲
 
 
-#define SPAWN_RANGE_MIN_X 100	// X軸の敵生成範囲の最小値
-#define SPAWN_RANGE_MAX_X (SCREEN_WIDTH - 100)	// X軸の敵生成範囲の最大値
-#define SPAWN_RANGE_MIN_Z -200	// Z軸の敵生成範囲の最小値
-#define SPAWN_RANGE_MAX_Z 100	// Z軸の敵生成範囲の最大値
+#define SPAWN_PRANGE_MIN_X 100	// X軸の敵生成範囲の最小値
+#define SPAWN_PRANGE_MAX_X (SCREEN_WIDTH - 100)	// X軸の敵生成範囲の最大値
+#define SPAWN_PRANGE_MIN_Z -200	// Z軸の敵生成範囲の最小値
+#define SPAWN_PRANGE_MAX_Z 100	// Z軸の敵生成範囲の最大値
 
 
 // プレイヤーのアニメーションデータの前宣言
@@ -136,10 +136,10 @@ bool Player::UpdateMove()
 		}
 	
 
-		if (m_pos.x < SPAWN_RANGE_MIN_X) m_pos.x = SPAWN_RANGE_MIN_X;
-		if (m_pos.x > SPAWN_RANGE_MAX_X) m_pos.x = SPAWN_RANGE_MAX_X;
-		if (m_pos.z < SPAWN_RANGE_MIN_Z) m_pos.z = SPAWN_RANGE_MIN_Z;
-		if (m_pos.z > SPAWN_RANGE_MAX_Z) m_pos.z = SPAWN_RANGE_MAX_Z;
+		if (m_pos.x < SPAWN_PRANGE_MIN_X) m_pos.x = SPAWN_PRANGE_MIN_X;
+		if (m_pos.x > SPAWN_PRANGE_MAX_X) m_pos.x = SPAWN_PRANGE_MAX_X;
+		if (m_pos.z < SPAWN_PRANGE_MIN_Z) m_pos.z = SPAWN_PRANGE_MIN_Z;
+		if (m_pos.z > SPAWN_PRANGE_MAX_Z) m_pos.z = SPAWN_PRANGE_MAX_Z;
 		
 	return isMove;
 }
