@@ -164,6 +164,12 @@ void Player::StateIdle()
 	{
 		ChangeState(EState::Attack);
 	}
+	// [C]キーでスタン状態へ移行(デバック用)
+	else if (PUSH(CInput::eButton3))
+	{
+		ChangeState(EState::Stun);
+		stunTimer = 30.0f;
+	}
 }
 
 // ジャンプ中の更新処理
@@ -231,6 +237,20 @@ void Player::StateAttack()
 	}
 }
 
+// スタン中の処理
+void Player::StateStun()
+{
+	if (stunTimer > 0)
+	{
+		stunTimer--;
+	}
+	else
+	{
+		stunTimer = 0;
+		ChangeState(EState::Idle); // スタン終了
+	}
+}
+
 // 死亡時の更新処理
 void Player::StateDeath()
 {
@@ -246,6 +266,7 @@ void Player::Update()
 	case EState::Jump:		StateJump();	break;
 	case EState::Attack:	StateAttack();	break;
 	case EState::Death:		StateDeath();	break;
+	case EState::Stun:		StateStun();	break;
 	}
 
 	// Y軸（高さ）の移動を座標に反映

@@ -22,6 +22,7 @@ private:
 		Jump,	// ジャンプ中
 		Attack,	// 攻撃中
 		Death,	// 死亡
+		Stun,	// スタン中
 	};
 	void ChangeState(EState state);
 
@@ -36,6 +37,8 @@ private:
 	void StateAttack();
 	// 死亡時の更新処理
 	void StateDeath();
+	// スタン中の処理
+	void StateStun();
 
 	// アニメーションの種類
 	enum class EAnimType
@@ -44,6 +47,7 @@ private:
 		Move,	// 移動
 		Death,	// 死亡
 		Attack,	// 攻撃
+		Stun,	// スタン
 
 		Num,
 	};
@@ -55,4 +59,5 @@ private:
 	CImage* mp_image;	// プレイヤーの画像
 
 	float m_moveSpeedY;	// Y軸（高さ）の移動速度
+	float stunTimer = 0;
 };
