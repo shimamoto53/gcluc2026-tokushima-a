@@ -1,39 +1,24 @@
 #include "Timer.h"
+#include "DebugPrint.h"
 
-int Timer::timer = 0;
+time_t Timer::startTime;
+
+void Timer::Start()
+{
+    startTime = time(NULL);
+}
 
 void Timer::Update()
 {
-    timer++;
+    int elapsed = (int)(time(NULL) - startTime);
+    int remain = 180 - elapsed;
+    int min = remain / 60;
+    int sec = remain % 60;
+
+    DebugPrint::Print("TIME %d:%02d", min, sec);
+
+    if (remain <= 0)
+    {
+        DebugPrint::Print("TIME UP");
+    }
 }
-
-void Timer::Reset()
-{
-    timer = 0;
-}
-
-float Timer::GetTime()
-{
-    return timer / 60.0f;
-}
-
-int Timer::GetMinute()
-{
-    return (timer / 60) / 60;
-}
-
-int Timer::GetSecond()
-{
-    return (timer / 60) % 60;
-}
-
-/*
-void Timer::Draw()
-{
-    int minute = GetMinute();
-    int second = GetSecond();
-    char timeString[16];
-    sprintf(timeString, "%02d:%02d", minute, second);
-
-    CFont::DrawText(10, 10, timeString, Color(255, 255, 255));
-}*/
