@@ -11,21 +11,12 @@
 
 void MainLoop()
 {
-	{
-		Timer::Update();   // ←ここでタイマー更新
-
-		char text[64];
-
-		DebugPrint::Print(
-			"TIME : %02d:%02d",
-			Timer::GetMinute(),
-			Timer::GetSecond()
-		);
-	}
 	//--------------------------------------------------------------
 	//ゲーム中の動きはここに書く
 	//ゲーム中はこの関数_を1秒間に60回呼び出している
 	//--------------------------------------------------------------
+
+	Timer::Update();
 
 	//タスクリストに登録されたタスクを全て更新
 	TaskManager::Instance()->Update();
@@ -80,6 +71,9 @@ void Init()
 
 	// エネミー管理クラスを生成
 	EnemyManager::Instance();
+
+	//タイマースタート
+	Timer::Start();
 }
 
 
