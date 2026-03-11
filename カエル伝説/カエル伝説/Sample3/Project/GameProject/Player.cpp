@@ -168,7 +168,7 @@ void Player::StateIdle()
 	else if (PUSH(CInput::eButton3))
 	{
 		ChangeState(EState::Stun);
-		stunTimer = 30.0f;
+		stunTimer = 50.0f;
 	}
 }
 
