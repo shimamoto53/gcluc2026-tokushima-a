@@ -250,9 +250,11 @@ void Player::StateAttack()
 // スタン中の処理
 void Player::StateStun()
 {
+	mp_image->ChangeAnimation((int)EAnimType::Idle);
+
 	if (stunTimer > 0)
 	{
-		stunTimer--;
+		stunTimer-=1.0f;
 	}
 	else
 	{
@@ -269,6 +271,15 @@ void Player::StateDeath()
 // 更新処理
 void Player::Update()
 {
+	/*
+	EnemyBase* enemy = EnemyManager::Instance()->GetNearEnemy(m_pos, CVector3D(50, 50, 50));
+	if (enemy != nullptr)
+	{
+		ChangeState(EState::Stun);
+		stunTimer = 50.0f;
+	}
+	*/
+
 	// 現在の状態に合わせて、処理を切り替える
 	switch (m_state)
 	{

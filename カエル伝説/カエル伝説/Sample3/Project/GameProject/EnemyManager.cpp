@@ -2,7 +2,7 @@
 #include "EnemyBase.h"
 #include "Slime.h"
 
-#define SPAWN_COUNT 3			// “G¶¬”
+#define SPAWN_COUNT 90			// “G¶¬”
 #define SPAWN_INTERVAL 3.0f		// “G‚ğ¶¬‚·‚éŠÔŠuŠÔ
 #define SPAWN_RANGE_MIN_X (SCREEN_WIDTH - 150)	// X²‚Ì“G¶¬”ÍˆÍ‚ÌÅ¬’l
 #define SPAWN_RANGE_MAX_X (SCREEN_WIDTH - 50)	// X²‚Ì“G¶¬”ÍˆÍ‚ÌÅ‘å’l
