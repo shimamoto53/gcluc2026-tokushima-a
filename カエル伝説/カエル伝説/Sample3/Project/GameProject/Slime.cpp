@@ -3,6 +3,7 @@
 
 #define CHIP_SIZE 256		// 1コマのサイズ
 #define CENTER_POS CVector2D(128.0f, 184.0f)	// 中心座標
+#define ENEMY_SPEED 5.0f	// 敵の移動速度
 
 // スライムのアニメーションデータ
 TexAnimData Slime::ANIM_DATA[(int)EAnimType::Num] =
@@ -113,7 +114,7 @@ void Slime::Update()
 	case EState::Idle:	StateIdle();	break;
 	case EState::Death:	StateDeath();	break;
 	}
-
+	m_pos.x -= ENEMY_SPEED;	// 左に移動
 	// イメージに座標を設定して、アニメーションを更新
 	mp_image->SetPos(CalcScreenPos());
 	mp_image->UpdateAnimation();

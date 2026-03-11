@@ -1,4 +1,7 @@
-﻿  Player.cpp
+﻿  Field.cpp
+D:\gcluc2026\gcluc2026-tokushima-a\カエル伝説\カエル伝説\Sample3\Project\GameProject\Field.cpp(37,22): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+  Slime.cpp
+  コードを生成中...
 GLFW.lib(init.obj) : warning LNK4099: PDB '' が 'GLFW.lib(init.obj)' で、または '' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
 GLFW.lib(window.obj) : warning LNK4099: PDB '' が 'GLFW.lib(window.obj)' で、または '' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
 GLFW.lib(input.obj) : warning LNK4099: PDB '' が 'GLFW.lib(input.obj)' で、または '' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。

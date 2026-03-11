@@ -26,3 +26,14 @@ int Timer::GetSecond()
 {
     return (timer / 60) % 60;
 }
+
+/*
+void Timer::Draw()
+{
+    int minute = GetMinute();
+    int second = GetSecond();
+    char timeString[16];
+    sprintf(timeString, "%02d:%02d", minute, second);
+
+    CFont::DrawText(10, 10, timeString, Color(255, 255, 255));
+}*/
