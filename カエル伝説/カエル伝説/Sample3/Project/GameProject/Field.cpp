@@ -8,7 +8,7 @@ Field::Field()
 	,m_scrollspeed  (2.0f)
 {
 	// フィールド画像を読み込み
-	mp_fieldImg = CImage::CreateImage("field.png");
+	mp_fieldImg = CImage::CreateImage("PlayScene_Background.png");
 }
 
 // デストラクタ
@@ -27,6 +27,15 @@ Field::~Field()
 void Field::Update()
 {
 	m_scrollx += m_scrollspeed;
+
+	// 背景画像の横幅を取得
+	int imgW = 4096;
+
+	// 画像の端まで来たらスクロール停止
+	if (m_scrollx > imgW - SCREEN_WIDTH)
+	{
+		m_scrollx = imgW - SCREEN_WIDTH;
+	}
 }
 
 // 描画
