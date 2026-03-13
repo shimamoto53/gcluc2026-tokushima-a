@@ -1,11 +1,4 @@
-﻿  Field.cpp
-D:\gcluc2026\gcluc2026-tokushima-a\カエル伝説\カエル伝説\Sample3\Project\GameProject\Field.cpp(37,20): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-D:\gcluc2026\gcluc2026-tokushima-a\カエル伝説\カエル伝説\Sample3\Project\GameProject\Field.cpp(47,22): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-  Player.cpp
-  main.cpp
-D:\gcluc2026\gcluc2026-tokushima-a\カエル伝説\カエル伝説\Sample3\Project\GameProject\main.cpp(111,42): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-D:\gcluc2026\gcluc2026-tokushima-a\カエル伝説\カエル伝説\Sample3\Project\GameProject\main.cpp(111,39): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-  コードを生成中...
+﻿  Player.cpp
 GLFW.lib(init.obj) : warning LNK4099: PDB '' が 'GLFW.lib(init.obj)' で、または '' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
 GLFW.lib(window.obj) : warning LNK4099: PDB '' が 'GLFW.lib(window.obj)' で、または '' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
 GLFW.lib(input.obj) : warning LNK4099: PDB '' が 'GLFW.lib(input.obj)' で、または '' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
@@ -15,9 +8,9 @@ GLFW.lib(win32_monitor.obj) : warning LNK4099: PDB '' が 'GLFW.lib(win32_monito
 GLFW.lib(win32_time.obj) : warning LNK4099: PDB '' が 'GLFW.lib(win32_time.obj)' で、または '' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
 GLFW.lib(monitor.obj) : warning LNK4099: PDB '' が 'GLFW.lib(monitor.obj)' で、または '' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
 GLFW.lib(vulkan.obj) : warning LNK4099: PDB '' が 'GLFW.lib(vulkan.obj)' で、または '' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+  glew.lib(glew.obj) : MSIL .netmodule または /GL を伴ってコンパイルされたモジュールが見つかりました。/LTCG を使用して再開始してください。リンカーのパフォーマンスを向上させるためには、コマンドラインに /LTCG を追加してください。
 GLFW.lib(win32_window.obj) : warning LNK4099: PDB '' が 'GLFW.lib(win32_window.obj)' で、または '' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
 GLFW.lib(win32_tls.obj) : warning LNK4099: PDB '' が 'GLFW.lib(win32_tls.obj)' で、または '' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-  glew.lib(glew.obj) : MSIL .netmodule または /GL を伴ってコンパイルされたモジュールが見つかりました。/LTCG を使用して再開始してください。リンカーのパフォーマンスを向上させるためには、コマンドラインに /LTCG を追加してください。
 GLFW.lib(win32_joystick.obj) : warning LNK4099: PDB '' が 'GLFW.lib(win32_joystick.obj)' で、または '' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
 GLFW.lib(wgl_context.obj) : warning LNK4099: PDB '' が 'GLFW.lib(wgl_context.obj)' で、または '' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
 GLFW.lib(egl_context.obj) : warning LNK4099: PDB '' が 'GLFW.lib(egl_context.obj)' で、または '' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。

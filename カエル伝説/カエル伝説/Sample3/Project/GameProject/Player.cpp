@@ -8,7 +8,7 @@
 #define CENTER_POS CVector2D(192.0f, 328.0f)	// 中心座標
 #define MOVE_SPEED_X 5.0f	// 横方向の移動速度
 #define MOVE_SPEED_Z 3.0f	// 奥方向の移動速度
-#define JUMP_SPEED 15.0f	// ジャンプ速度
+#define JUMP_SPEED 20.0f	// ジャンプ速度
 #define GRAVITY -1.0f		// 重力
 #define ATTACK_INDEX 2		// 攻撃が発生するアニメーションの番号
 #define ATTACK_RANGE CVector3D(300.0f, 10.0f, 50.0f)	// 攻撃範囲
@@ -61,17 +61,7 @@ TexAnimData Player::ANIM_DATA[(int)EAnimType::Num] =
 		},
 		3
 	},
-	/*//　攻撃アニメーション
-	{
-		new TexAnim[4]
-	{
-		{24, 6},
-		{25, 6},
-		{26, 6},
-		{27, 6},
-	},
-		4
-	},*/
+	
 };
 
 
@@ -202,6 +192,7 @@ void Player::StateJump()
 			m_moveSpeedY = JUMP_SPEED;
 			m_isGrounded = false;
 			m_stateStep++;
+			
 			break;
 		// ステップ1：ジャンプ終了
 		case 1:
@@ -212,7 +203,12 @@ void Player::StateJump()
 			}
 			break;
 	}
-
+	int score = Score::Get();
+	if (PUSH(CInput::eButton2)&&score >= 50)
+	{
+		ChangeState(EState::Kick);
+		return;
+	}
 	// 移動処理
 	bool isMove = UpdateMove();
 	mp_image->ChangeAnimation((int)EAnimType::Idle);
@@ -238,21 +234,17 @@ void Player::StateAttack()
 				EnemyBase* enemy = EnemyManager::Instance()->GetNearEnemy(m_pos, ATTACK_RANGE);
 				if (enemy != nullptr)
 				{
-					int score = Score::Get();
-
 					
 
-					//スコアが50以上ならキック追加
+					
+					enemy->TakeDamage(50);
+
+				/*	//スコアが50以上ならキック追加
 					if (score >= 50)
 					{
 						enemy->TakeDamage(100);
 					}
-					// スコアが50未満ならパンチのみ
-					else
-					{
-						enemy->TakeDamage(50);
-					}
-
+				*/
 				}
 				m_stateStep++;
 			}
@@ -265,6 +257,37 @@ void Player::StateAttack()
 				ChangeState(EState::Idle);
 			}
 			break;
+	}
+}
+
+void Player::StateKick()
+{
+	switch (m_stateStep)
+	{
+	case 0:
+		// キックアニメーション
+		mp_image->ChangeAnimation((int)EAnimType::Attack, false);
+
+		m_moveSpeedY = -10.0f;
+
+		m_stateStep++;
+		break;
+	case 1:
+		if (mp_image->GetIndex() >= ATTACK_INDEX)
+		{
+			EnemyBase* enemy = EnemyManager::Instance()->GetNearEnemy(m_pos, ATTACK_RANGE);
+			if (enemy)
+			{
+				enemy->TakeDamage(100);
+			}
+			m_stateStep++;
+		}
+		break;
+	case 2:
+		if (m_isGrounded)
+		{
+			ChangeState(EState::Idle);
+		}
 	}
 }
 
@@ -308,6 +331,7 @@ void Player::Update()
 	case EState::Attack:	StateAttack();	break;
 	case EState::Death:		StateDeath();	break;
 	case EState::Stun:		StateStun();	break;
+	case EState::Kick:		StateKick();	break;
 	}
 
 	// Y軸（高さ）の移動を座標に反映

@@ -27,6 +27,7 @@ private:
 		Attack,	// 攻撃中
 		Death,	// 死亡
 		Stun,	// スタン中
+		Kick,	// キック中
 	};
 	void ChangeState(EState state);
 
@@ -43,6 +44,8 @@ private:
 	void StateDeath();
 	// スタン中の処理
 	void StateStun();
+	// キック中の処理
+	void StateKick();
 
 	Field* m_field = nullptr;
 
@@ -54,6 +57,7 @@ private:
 		Death,	// 死亡
 		Attack,	// 攻撃
 		Stun,	// スタン
+		Kick,	// キック
 
 		Num,
 	};
