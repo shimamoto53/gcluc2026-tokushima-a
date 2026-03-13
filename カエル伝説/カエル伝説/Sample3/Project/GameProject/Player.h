@@ -24,10 +24,11 @@ private:
 	{
 		Idle,	// 待機状態
 		Jump,	// ジャンプ中
-		Attack,	// 攻撃中
+		Attack,	// パンチ
+		Kick,	// キック
 		Death,	// 死亡
 		Stun,	// スタン中
-		Kick,	// キック中
+		
 	};
 	void ChangeState(EState state);
 
@@ -38,14 +39,15 @@ private:
 	void StateIdle();
 	// ジャンプ中の更新処理
 	void StateJump();
-	// 攻撃中の更新処理
+	// パンチの更新処理
 	void StateAttack();
+	// キックの更新処理
+	void StateKick();
 	// 死亡時の更新処理
 	void StateDeath();
 	// スタン中の処理
 	void StateStun();
-	// キック中の処理
-	void StateKick();
+	
 
 	Field* m_field = nullptr;
 
@@ -55,9 +57,9 @@ private:
 		Idle,	// 待機
 		Move,	// 移動
 		Death,	// 死亡
-		Attack,	// 攻撃
-		Stun,	// スタン
+		Attack,	// パンチ
 		Kick,	// キック
+		Stun,	// スタン
 
 		Num,
 	};

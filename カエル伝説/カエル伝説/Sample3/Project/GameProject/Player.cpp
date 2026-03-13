@@ -50,7 +50,7 @@ TexAnimData Player::ANIM_DATA[(int)EAnimType::Num] =
 		},
 		3
 	},
-	// 攻撃アニメーション
+	// はたくアニメーション
 	{
 		new TexAnim[4]
 		{
@@ -61,7 +61,30 @@ TexAnimData Player::ANIM_DATA[(int)EAnimType::Num] =
 		},
 		3
 	},
-	
+
+	/*// キックアニメーション
+	{
+	new TexAnim[4]
+		{
+			{30, 6},
+			{31, 6},
+			{32, 6},
+			{33, 6},
+		},
+		3
+	},*/
+	/*//　攻撃アニメーション
+	{
+		new TexAnim[4]
+	{
+		{24, 6},
+		{25, 6},
+		{26, 6},
+		{27, 6},
+	},
+		4
+	},*/
+
 };
 
 
@@ -161,12 +184,17 @@ void Player::StateIdle()
 	EAnimType anim = isMove ? EAnimType::Move : EAnimType::Idle;
 	mp_image->ChangeAnimation((int)anim);
 
-	// [Z]キーでジャンプ状態へ移行
-	if (PUSH(CInput::eButton1))
+	// [J]キーと[SPACE]キーでキックへ移行
+	if (HOLD(CInput::eButton1) && HOLD(CInput::eButton2))
+	{
+		ChangeState(EState::Kick);
+	}
+	// [SPACE]キーでジャンプ状態へ移行
+	else if (PUSH(CInput::eButton1))
 	{
 		ChangeState(EState::Jump);
 	}
-	// [X]キーで攻撃状態へ移行
+	// [J]キーで攻撃状態へ移行
 	else if (PUSH(CInput::eButton2))
 	{
 		ChangeState(EState::Attack);
@@ -234,17 +262,7 @@ void Player::StateAttack()
 				EnemyBase* enemy = EnemyManager::Instance()->GetNearEnemy(m_pos, ATTACK_RANGE);
 				if (enemy != nullptr)
 				{
-					
-
-					
 					enemy->TakeDamage(50);
-
-				/*	//スコアが50以上ならキック追加
-					if (score >= 50)
-					{
-						enemy->TakeDamage(100);
-					}
-				*/
 				}
 				m_stateStep++;
 			}
@@ -329,9 +347,10 @@ void Player::Update()
 	case EState::Idle:		StateIdle();	break;
 	case EState::Jump:		StateJump();	break;
 	case EState::Attack:	StateAttack();	break;
+	case EState::Kick:		StateKick();	break;
 	case EState::Death:		StateDeath();	break;
 	case EState::Stun:		StateStun();	break;
-	case EState::Kick:		StateKick();	break;
+
 	}
 
 	// Y軸（高さ）の移動を座標に反映
