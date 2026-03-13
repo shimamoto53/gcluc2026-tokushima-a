@@ -14,6 +14,10 @@ public:
 	void Update() override;
 	// 描画
 	void PreRender() override;
+	// スクロール速度取得
+	float GetScrollSpeed() const { return m_scrollspeed; }
+
+
 
 protected:
 	CImage* mp_fieldImg;	// フィールドの画像

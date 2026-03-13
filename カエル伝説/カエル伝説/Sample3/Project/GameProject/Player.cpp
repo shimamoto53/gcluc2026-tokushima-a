@@ -2,6 +2,7 @@
 #include "EnemyManager.h"
 #include "EnemyBase.h"
 #include "Score.h"
+#include "Field.h"
 
 #define CHIP_SIZE 384		// 1コマのサイズ
 #define CENTER_POS CVector2D(192.0f, 328.0f)	// 中心座標
@@ -17,7 +18,6 @@
 #define SPAWN_PRANGE_MAX_X (SCREEN_WIDTH - 100)	// X軸の敵生成範囲の最大値
 #define SPAWN_PRANGE_MIN_Z -200	// Z軸の敵生成範囲の最小値
 #define SPAWN_PRANGE_MAX_Z 100	// Z軸の敵生成範囲の最大値
-
 
 // プレイヤーのアニメーションデータの前宣言
 TexAnimData Player::ANIM_DATA[(int)EAnimType::Num] =
@@ -61,6 +61,17 @@ TexAnimData Player::ANIM_DATA[(int)EAnimType::Num] =
 		},
 		3
 	},
+	/*//　攻撃アニメーション
+	{
+		new TexAnim[4]
+	{
+		{24, 6},
+		{25, 6},
+		{26, 6},
+		{27, 6},
+	},
+		4
+	},*/
 };
 
 
@@ -150,6 +161,11 @@ void Player::StateIdle()
 {
 	// 移動処理
 	bool isMove = UpdateMove();
+	float scrollSpeed = m_field->GetScrollSpeed();
+	if (scrollSpeed != 0.0f)
+	{
+		m_pos.x -= scrollSpeed;
+	}
 
 	// 移動状態に合わせて、アニメーションを切り替え
 	EAnimType anim = isMove ? EAnimType::Move : EAnimType::Idle;
@@ -224,14 +240,19 @@ void Player::StateAttack()
 				{
 					int score = Score::Get();
 
-					//パンチ
-					enemy->TakeDamage(50);
+					
 
 					//スコアが50以上ならキック追加
 					if (score >= 50)
 					{
 						enemy->TakeDamage(100);
 					}
+					// スコアが50未満ならパンチのみ
+					else
+					{
+						enemy->TakeDamage(50);
+					}
+
 				}
 				m_stateStep++;
 			}
@@ -277,9 +298,8 @@ void Player::Update()
 	{
 		ChangeState(EState::Stun);
 		stunTimer = 50.0f;
-	}
-	*/
-
+	}*/
+	
 	// 現在の状態に合わせて、処理を切り替える
 	switch (m_state)
 	{

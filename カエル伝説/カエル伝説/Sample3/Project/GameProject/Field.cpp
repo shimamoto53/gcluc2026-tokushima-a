@@ -35,6 +35,7 @@ void Field::Update()
 	if (m_scrollx > imgW - SCREEN_WIDTH)
 	{
 		m_scrollx = imgW - SCREEN_WIDTH;
+		m_scrollspeed = 0.0f;
 	}
 }
 
@@ -47,3 +48,4 @@ void Field::PreRender()
 
 	mp_fieldImg->Draw();
 }
+

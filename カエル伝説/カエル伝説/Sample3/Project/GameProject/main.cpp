@@ -7,7 +7,8 @@
 //--------------------------------------------
 //グローバル変数領域
 //--------------------------------------------
-
+Field* g_field = nullptr;
+Player* g_player = nullptr;
 
 void MainLoop()
 {
@@ -61,14 +62,24 @@ void Init()
 	//初期化の命令を書く
 	//ゲーム起動時に一度だけ呼ばれる
 	//-----------------------------------------------------
-
 	// フィールドを生成
+	g_field = new Field();
+
+	// プレイヤーを生成
+	g_player = new Player(CVector3D(SCREEN_WIDTH * 0.5f, 0.0f, 0.0f));
+
+	// Player に Field を渡す
+	g_player->SetField(g_field);
+
+
+	/*// フィールドを生成
 	new Field();
 
 	// プレイヤーを生成
 	new Player(
 		CVector3D(SCREEN_WIDTH * 0.5f, 0.0f, 0.0f));
 
+	player->SetField(field);*/
 	// エネミー管理クラスを生成
 	EnemyManager::Instance();
 
