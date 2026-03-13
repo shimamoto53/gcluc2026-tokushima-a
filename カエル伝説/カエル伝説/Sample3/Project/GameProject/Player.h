@@ -24,7 +24,8 @@ private:
 	{
 		Idle,	// 待機状態
 		Jump,	// ジャンプ中
-		Attack,	// 攻撃中
+		Attack,	// パンチ
+		Kick,	// キック
 		Death,	// 死亡
 		Stun,	// スタン中
 	};
@@ -37,8 +38,10 @@ private:
 	void StateIdle();
 	// ジャンプ中の更新処理
 	void StateJump();
-	// 攻撃中の更新処理
+	// パンチの更新処理
 	void StateAttack();
+	// キックの更新処理
+	void StateKick();
 	// 死亡時の更新処理
 	void StateDeath();
 	// スタン中の処理
@@ -52,7 +55,8 @@ private:
 		Idle,	// 待機
 		Move,	// 移動
 		Death,	// 死亡
-		Attack,	// 攻撃
+		Attack,	// パンチ
+		Kick,	// キック
 		Stun,	// スタン
 
 		Num,

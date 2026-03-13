@@ -50,7 +50,7 @@ TexAnimData Player::ANIM_DATA[(int)EAnimType::Num] =
 		},
 		3
 	},
-	// 攻撃アニメーション
+	// はたくアニメーション
 	{
 		new TexAnim[4]
 		{
@@ -61,6 +61,17 @@ TexAnimData Player::ANIM_DATA[(int)EAnimType::Num] =
 		},
 		3
 	},
+	/*// キックアニメーション
+	{
+	new TexAnim[4]
+		{
+			{30, 6},
+			{31, 6},
+			{32, 6},
+			{33, 6},
+		},
+		3
+	},*/
 	/*//　攻撃アニメーション
 	{
 		new TexAnim[4]
@@ -171,12 +182,17 @@ void Player::StateIdle()
 	EAnimType anim = isMove ? EAnimType::Move : EAnimType::Idle;
 	mp_image->ChangeAnimation((int)anim);
 
-	// [Z]キーでジャンプ状態へ移行
-	if (PUSH(CInput::eButton1))
+	// [J]キーと[SPACE]キーでキックへ移行
+	if (HOLD(CInput::eButton1) && HOLD(CInput::eButton2))
+	{
+		ChangeState(EState::Kick);
+	}
+	// [SPACE]キーでジャンプ状態へ移行
+	else if (PUSH(CInput::eButton1))
 	{
 		ChangeState(EState::Jump);
 	}
-	// [X]キーで攻撃状態へ移行
+	// [J]キーで攻撃状態へ移行
 	else if (PUSH(CInput::eButton2))
 	{
 		ChangeState(EState::Attack);
@@ -186,6 +202,48 @@ void Player::StateIdle()
 	{
 		ChangeState(EState::Stun);
 		stunTimer = 50.0f;
+	}
+}
+
+// 攻撃中の更新処理
+void Player::StateKick()
+{
+	// ステップごとに処理を切り替え
+	switch (m_stateStep)
+	{
+		// ステップ0：キックアニメーションに切り替え
+	case 0:
+		mp_image->ChangeAnimation((int)EAnimType::Attack, false);
+		m_stateStep++;
+		break;
+		// ステップ1：攻撃判定
+	case 1:
+		// キックのアニメーションが攻撃タイミングまで進めば
+		if (mp_image->GetIndex() >= ATTACK_INDEX)
+		{
+			// 一番近い敵にダメージを与える
+			EnemyBase* enemy = EnemyManager::Instance()->GetNearEnemy(m_pos, ATTACK_RANGE);
+			if (enemy != nullptr)
+			{
+				int score = Score::Get();
+
+				// スコアが50以上ならキック追加
+				if (score >= 50)
+				{
+					enemy->TakeDamage(100);
+				}
+				m_stateStep++;
+			}
+		}
+		break;
+		// ステップ2：アニメーション終了待ち
+	case 2:
+		// キックのアニメーションが終了したら、待機状態へ移行
+		if (mp_image->CheckAnimationEnd())
+		{
+			ChangeState(EState::Idle);
+		}
+		break;
 	}
 }
 
@@ -240,19 +298,8 @@ void Player::StateAttack()
 				{
 					int score = Score::Get();
 
-					
-
-					//スコアが50以上ならキック追加
-					if (score >= 50)
-					{
-						enemy->TakeDamage(100);
-					}
 					// スコアが50未満ならパンチのみ
-					else
-					{
 						enemy->TakeDamage(50);
-					}
-
 				}
 				m_stateStep++;
 			}
@@ -306,6 +353,7 @@ void Player::Update()
 	case EState::Idle:		StateIdle();	break;
 	case EState::Jump:		StateJump();	break;
 	case EState::Attack:	StateAttack();	break;
+	case EState::Kick:		StateKick();	break;
 	case EState::Death:		StateDeath();	break;
 	case EState::Stun:		StateStun();	break;
 	}
