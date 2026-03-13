@@ -11,7 +11,7 @@ void Timer::Start()
 void Timer::Update()
 {
     int elapsed = (int)(time(NULL) - startTime);
-    int remain = 180 - elapsed;
+    int remain = 60 - elapsed;
     int min = remain / 60;
     int sec = remain % 60;
 

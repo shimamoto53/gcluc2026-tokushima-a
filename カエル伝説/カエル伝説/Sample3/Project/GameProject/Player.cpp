@@ -62,17 +62,7 @@ TexAnimData Player::ANIM_DATA[(int)EAnimType::Num] =
 		3
 	},
 
-	/*// キックアニメーション
-	{
-	new TexAnim[4]
-		{
-			{30, 6},
-			{31, 6},
-			{32, 6},
-			{33, 6},
-		},
-		3
-	},*/
+	
 	/*//　攻撃アニメーション
 	{
 		new TexAnim[4]
