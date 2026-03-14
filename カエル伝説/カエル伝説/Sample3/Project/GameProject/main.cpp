@@ -3,12 +3,25 @@
 #include "TaskManager.h"
 #include "EnemyManager.h"
 #include "Timer.h"
+#include "Screen.h"
+#include "GameTitle_Screen.h"
+#include "Game_Screen.h"
+#include "GameBoss_Screen.h"
+#include "GameClear_Screen.h"
+#include "GameOver_Screen.h"
 
 //--------------------------------------------
 //グローバル変数領域
 //--------------------------------------------
 Field* g_field = nullptr;
 Player* g_player = nullptr;
+int g_Scene = TITLE_SCREEN;
+CTitleScreen Title;
+CGameScreen Game;
+CGameBossScreen Boss;
+CGameClearScreen Clear;
+CGameOverScreen  Over;
+
 
 void MainLoop()
 {
@@ -17,17 +30,44 @@ void MainLoop()
 	//ゲーム中はこの関数_を1秒間に60回呼び出している
 	//--------------------------------------------------------------
 
+	switch (g_Scene)
+	{
+	case TITLE_SCREEN:
+		Timer::Start();
+		Title.Update();
+		Title.Draw();
+		g_Scene = Title.GetState();
+		break;
+
+	case GAME_SCREEN:
+		Game.Update();
+		Game.Draw();
+		g_Scene = Game.GetState();
+		break;
+
+	case GAMEBOSS_SCREEN:
+		Boss.Update();
+		Boss.Draw();
+		g_Scene = Boss.GetState();
+		break;
+
+	case GAMECLEAR_SCREEN:
+		Clear.Update();
+		Clear.Draw();
+		g_Scene = Clear.GetState();
+		break;
+
+	case GAMEOVER_SCREEN:
+		Over.Update();
+		Over.Draw();
+		g_Scene = Over.GetState();
+		break;
+	}
 	Timer::Update();
 
-	//タスクリストに登録されたタスクを全て更新
-	TaskManager::Instance()->Update();
-
-	//タスクリストに登録されたタスクを全て描画
-	TaskManager::Instance()->Render();
-
-	//デバック文字の描画
 	DebugPrint::Render();
 }
+
 void Init()
 {
 	std::srand((unsigned int)std::time(nullptr));
@@ -41,7 +81,7 @@ void Init()
 	CInput::SetButton(0, CInput::eButton2, 'J');
 	CInput::SetButton(0, CInput::eButton3, 'C');
 	CInput::SetButton(0, CInput::eButton4, 'V');
-	CInput::SetButton(0, CInput::eButton5, VK_SPACE);
+	CInput::SetButton(0, CInput::eButton5, 'B');
 	CInput::SetButton(0, CInput::eButton10, VK_RETURN);
 	CInput::SetButton(0, CInput::eUp, 'W');
 	CInput::SetButton(0, CInput::eDown, 'S');

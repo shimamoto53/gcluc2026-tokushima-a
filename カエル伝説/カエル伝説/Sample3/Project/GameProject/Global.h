@@ -6,3 +6,5 @@
 #define SCREEN_WIDTH 1920
 //âÊñ çÇÇ≥
 #define SCREEN_HEIGHT 1080
+
+extern int g_Scene;

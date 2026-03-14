@@ -14,6 +14,11 @@
     <ClCompile Include="TaskManager.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Score.cpp" />
+    <ClCompile Include="Game_Screen.cpp" />
+    <ClCompile Include="GameBoss_Screen.cpp" />
+    <ClCompile Include="GameClear_Screen.cpp" />
+    <ClCompile Include="GameOver_Screen.cpp" />
+    <ClCompile Include="GameTitle_Screen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Global.h" />
@@ -29,5 +34,11 @@
     <ClInclude Include="TaskManager.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Score.h" />
+    <ClInclude Include="Game_Screen.h" />
+    <ClInclude Include="GameBoss_Screen.h" />
+    <ClInclude Include="GameClear_Screen.h" />
+    <ClInclude Include="GameOver_Screen.h" />
+    <ClInclude Include="GameTitle_Screen.h" />
+    <ClInclude Include="Screen.h" />
   </ItemGroup>
 </Project>
