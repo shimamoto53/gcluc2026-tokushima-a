@@ -175,7 +175,7 @@ void Player::StateIdle()
 	mp_image->ChangeAnimation((int)anim);
 
 	// [J]キーと[SPACE]キーでキックへ移行
-	if (HOLD(CInput::eButton1) && HOLD(CInput::eButton2))
+	if (PUSH(CInput::eButton1) && PUSH(CInput::eButton2) && m_kickCoolTime == 0)
 	{
 		ChangeState(EState::Kick);
 	}
@@ -222,7 +222,7 @@ void Player::StateJump()
 			break;
 	}
 	int score = Score::Get();
-	if (PUSH(CInput::eButton2)&&score >= 50)
+	if (PUSH(CInput::eButton2)&&score >= 50 && m_kickCoolTime == 0)
 	{
 		ChangeState(EState::Kick);
 		return;
@@ -288,6 +288,8 @@ void Player::StateKick()
 			{
 				enemy->TakeDamage(100);
 			}
+			m_kickCoolTime = 180; // クールタイム
+
 			m_stateStep++;
 		}
 		break;
@@ -332,6 +334,13 @@ void Player::Update()
 	}*/
 	
 	// 現在の状態に合わせて、処理を切り替える
+	if (m_kickCoolTime > 0)
+	{
+		m_kickCoolTime--;
+	}
+
+	DebugPrint::Print("KickCoolTime:%d", m_kickCoolTime);
+
 	switch (m_state)
 	{
 	case EState::Idle:		StateIdle();	break;

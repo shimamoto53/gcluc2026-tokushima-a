@@ -29,25 +29,32 @@ void MainLoop()
 	//ƒQ[ƒ€’†‚Ì“®‚«‚Í‚±‚±‚É‘‚­
 	//ƒQ[ƒ€’†‚Í‚±‚ÌŠÖ”_‚ğ1•bŠÔ‚É60‰ñŒÄ‚Ño‚µ‚Ä‚¢‚é
 	//--------------------------------------------------------------
+	static bool start = false;
 
 	switch (g_Scene)
 	{
 	case TITLE_SCREEN:
-		Timer::Start();
 		Title.Update();
 		Title.Draw();
 		g_Scene = Title.GetState();
 		break;
 
 	case GAME_SCREEN:
+		if (!start)
+		{
+			Timer::Start();
+			start = true;
+		}
 		Game.Update();
 		Game.Draw();
+		Timer::Update();
 		g_Scene = Game.GetState();
 		break;
 
 	case GAMEBOSS_SCREEN:
 		Boss.Update();
 		Boss.Draw();
+		Timer::Update();
 		g_Scene = Boss.GetState();
 		break;
 
@@ -63,7 +70,6 @@ void MainLoop()
 		g_Scene = Over.GetState();
 		break;
 	}
-	Timer::Update();
 
 	DebugPrint::Render();
 }

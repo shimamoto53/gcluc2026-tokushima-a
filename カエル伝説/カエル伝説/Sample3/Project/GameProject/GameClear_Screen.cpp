@@ -1,5 +1,6 @@
 //ヘッダーファイル
 #include"GameClear_Screen.h"
+#include "Score.h"
 
 //コンストラクタ
 CGameClearScreen::CGameClearScreen()
@@ -37,5 +38,8 @@ void CGameClearScreen::Draw() const
 	{
 		m_Image->Draw();
 	}
+	CREATE_FONT_F("score", "C:\\Windows\\Fonts\\msgothic.ttc", 80);
+	FONT("score")->Draw(850, 450, 1, 1, 1, "スコア");
+	FONT("score")->Draw(910, 560, 1, 1, 1, "%d", Score::Get());
 	DebugPrint::Print("GameClear Screen Hit V key to Title Screen");
 }

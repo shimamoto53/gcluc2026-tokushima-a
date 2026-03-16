@@ -72,4 +72,5 @@ private:
 
 	float m_moveSpeedY;	// Y²i‚‚³j‚ÌˆÚ“®‘¬“x
 	float stunTimer = 0;
+	int m_kickCoolTime = 0;
 };
