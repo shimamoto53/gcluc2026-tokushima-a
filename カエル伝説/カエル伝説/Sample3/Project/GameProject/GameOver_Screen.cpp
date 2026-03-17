@@ -17,6 +17,7 @@ CGameOverScreen::~CGameOverScreen()
 //ŽÀsˆ—
 void CGameOverScreen::Update()
 {
+	SOUND("bgm")->Stop();
 	m_Timer++;
 
 	if (m_Timer > 30 && PUSH(CInput::eButton4))

@@ -2,6 +2,7 @@
 #include "DebugPrint.h"
 
 time_t Timer::startTime;
+int Timer::resultTime = 0;
 
 void Timer::Start()
 {
@@ -16,6 +17,7 @@ void Timer::Update()
     int remain = 60 - elapsed;
 
     if (remain < 0) remain = 0;
+    resultTime = remain;
 
     int min = remain / 60;
     int sec = remain % 60;
@@ -27,4 +29,9 @@ void Timer::Update()
     {
         DebugPrint::Print("TIME UP");
     }
+}
+
+int Timer::GetResult()
+{
+    return resultTime;
 }

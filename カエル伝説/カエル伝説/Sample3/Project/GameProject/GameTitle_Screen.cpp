@@ -22,6 +22,7 @@ void CTitleScreen::Update()
 
 	if (m_Timer > 30 && PUSH(CInput::eButton4))
 	{
+		SOUND("select")->Play();
 		m_State = GAME_SCREEN;
 	}
 }
