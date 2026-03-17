@@ -193,6 +193,7 @@ void Player::StateIdle()
 	else if (PUSH(CInput::eButton3))
 	{
 		ChangeState(EState::Stun);
+		SOUND("damage")->Play();
 		stunTimer = 50.0f;
 	}
 }
@@ -253,6 +254,7 @@ void Player::StateAttack()
 				if (enemy != nullptr)
 				{
 					enemy->TakeDamage(50);
+					SOUND("attack")->Play();
 				}
 				m_stateStep++;
 			}
@@ -287,6 +289,7 @@ void Player::StateKick()
 			if (enemy)
 			{
 				enemy->TakeDamage(100);
+				SOUND("kick")->Play();
 			}
 			m_kickCoolTime = 180; // クールタイム
 

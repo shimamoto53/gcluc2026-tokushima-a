@@ -16,6 +16,14 @@ CGameScreen::~CGameScreen()
 //更新処理
 void CGameScreen::Update()
 {
+	static bool isBgmStart = false;
+
+	if (!isBgmStart)
+	{
+		SOUND("bgm")->Volume(0.2f);
+		SOUND("bgm")->Play(true);
+		isBgmStart = true;
+	}
 	//タスクリストに登録されたタスクを全て更新
 	TaskManager::Instance()->Update();
 	m_Timer++;

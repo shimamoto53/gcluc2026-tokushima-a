@@ -30,6 +30,7 @@ void MainLoop()
 	//ゲーム中はこの関数_を1秒間に60回呼び出している
 	//--------------------------------------------------------------
 	static bool start = false;
+	static bool bgmStart = false;
 
 	switch (g_Scene)
 	{
@@ -44,6 +45,11 @@ void MainLoop()
 		{
 			Timer::Start();
 			start = true;
+		}
+		if (!bgmStart)
+		{
+			SOUND("bgm")->Play(true);
+			bgmStart = true;
 		}
 		Game.Update();
 		Game.Draw();
@@ -131,6 +137,12 @@ void Init()
 
 	//タイマースタート
 	Timer::Start();
+
+	SOUND("attack")->Load("Attack.wav");
+	SOUND("kick")->Load("Kick.wav");
+	SOUND("damage")->Load("Damage.wav");
+	SOUND("select")->Load("Select.wav");
+	SOUND("bgm")->Load("BGM.wav");
 }
 
 
