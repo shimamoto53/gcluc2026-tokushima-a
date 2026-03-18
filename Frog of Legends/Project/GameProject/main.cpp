@@ -94,6 +94,7 @@ void Init()
 	SOUND("damage")->Load("Damage.wav");
 	SOUND("select")->Load("Select.wav");
 	SOUND("bgm")->Load("BGM.wav");
+	SOUND("big")->Load("Big.wav");
 	
 }
 

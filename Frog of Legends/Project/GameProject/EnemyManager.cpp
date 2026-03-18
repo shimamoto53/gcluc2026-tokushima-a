@@ -142,7 +142,7 @@ EnemyBase* EnemyManager::GetNearEnemy(const CVector3D& pos, const CVector3D& ran
 void EnemyManager::Update()
 {
 	// 残り時間が30秒以下でボス出現
-	if (!m_isBossSpawned && Timer::GetRemaining() <= 0)
+	if (!m_isBossSpawned && Timer::GetRemaining() <= 55)
 	{
 		KillAllEnemies();
 
