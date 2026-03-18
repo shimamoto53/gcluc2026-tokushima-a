@@ -364,11 +364,17 @@ void Player::StateKick()
 
 				// ジャンプピークから10フレーム以内ならダメージ増加
 				if (m_isJumpPeak && m_peakTimer <= 1)
+				{
 					damage = 600;
-
-				enemy->TakeDamage(damage);
-
-				SOUND("kick")->Play();
+					SOUND("kick")->Play();
+					enemy->TakeDamage(damage);
+					
+				}
+				else
+				{
+					SOUND("kick")->Play();
+					enemy->TakeDamage(damage);
+				}
 				m_isHit = true;
 				m_hitTimer = 30;   // 表示時間（30フレーム）
 			}

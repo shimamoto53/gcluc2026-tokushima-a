@@ -16,9 +16,9 @@ TitleTask::TitleTask()
 {
     mp_title = CImage::CreateImage("Title.png");
 
-    mp_start = CImage::CreateImage("gamestart.png");
-    mp_explain = CImage::CreateImage("gameset.png");
-    mp_exit = CImage::CreateImage("exitgame.png");
+    mp_start = CImage::CreateImage("Game_Start.png");
+    mp_explain = CImage::CreateImage("Game_Explain.png");
+    mp_exit = CImage::CreateImage("Game_Exit.png");
 
     mp_marker = CImage::CreateImage("テッポウウオ.png");
 
@@ -106,12 +106,12 @@ void TitleTask::Render()
     mp_title->SetPos(0, 0);
     mp_title->Draw();
 
-    int x = 700;
-    int y = 400;
+    int x = 600;
+    int y = 550;
     int space = 120;
 
     // Startボタン
-    mp_start->SetPos(700, 400);
+    mp_start->SetPos(x, y);
     mp_start->Draw();
 
     mp_explain->SetPos(x, y + space);
