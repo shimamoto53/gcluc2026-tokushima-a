@@ -52,7 +52,7 @@ Boss::Boss(BossType type, const CVector3D& pos)
 	mp_headImage = CImage::CreateImage(
 		"Boss_neck.png",
 		ANIM_DATA,
-		200,200
+		332,332
 	);
 
 	mp_bodyImage = CImage::CreateImage("Boss.png");
@@ -66,7 +66,7 @@ Boss::Boss(BossType type, const CVector3D& pos)
 	m_bodyHitW = 350;
 	m_bodyHitH = 300;
 
-	m_startX = m_pos.x - 230;
+	m_startX = m_pos.x - 430;
 	m_headX = m_startX;
 	m_headY = 0;
 
@@ -75,7 +75,7 @@ Boss::Boss(BossType type, const CVector3D& pos)
 	m_state = EState::Idle;
 	m_stateStep = 0;
 	mp_headImage->ChangeAnimation((int)EAnimType::Idle);
-	m_hitRange = CVector3D(200.0f, 0.0f, 400.0f);
+	m_hitRange = CVector3D(525.0f, 0.0f, 400.0f);
 	m_headHitRange = CVector3D(100.0f, 100.0f, 100.0f);
 }
 
@@ -265,7 +265,7 @@ void Boss::Update()
 	case EState::Return: StateReturn(); break;
 	case EState::Death:  StateDeath();  break;
 	}
-	float bodyX = SCREEN_WIDTH - 620;
+	float bodyX = SCREEN_WIDTH - 570;
 	float bodyY = SCREEN_HEIGHT / 2.25;
 
 	mp_bodyImage->SetPos(bodyX,bodyY);

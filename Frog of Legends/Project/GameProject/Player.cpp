@@ -20,7 +20,7 @@ extern Field* g_field;
 
 
 #define SPAWN_PRANGE_MIN_X 100	// X軸の敵生成範囲の最小値
-#define SPAWN_PRANGE_MAX_X (SCREEN_WIDTH - 550)	// X軸の敵生成範囲の最大値
+#define SPAWN_PRANGE_MAX_X (SCREEN_WIDTH - 770)	// X軸の敵生成範囲の最大値
 #define SPAWN_PRANGE_MIN_Z -200	// Z軸の敵生成範囲の最小値
 #define SPAWN_PRANGE_MAX_Z 200	// Z軸の敵生成範囲の最大値
 
@@ -366,6 +366,7 @@ void Player::StateKick()
 				if (m_isJumpPeak && m_peakTimer <= 1)
 				{
 					damage = 600;
+					SOUND("big")->Play();
 					SOUND("kick")->Play();
 					enemy->TakeDamage(damage);
 					
@@ -392,8 +393,9 @@ void Player::StateKick()
 			else                     // 右向き
 				m_pos.x -= m_moveSpeedX;
 
-			m_isKicking = false;
+			
 			ChangeState(EState::Idle);
+			
 			
 		}
 	}
@@ -438,7 +440,7 @@ void Player::Update()
 		return;
 
 	//敵と接触スタン
-	if (!m_isKicking && m_state != EState::Stun)
+	if (m_state != EState::Kick && m_state != EState::Stun)
 	{
 		EnemyBase* enemy = EnemyManager::Instance()->GetNearEnemy(m_pos, CVector3D(50, 50, 50));
 		if (enemy != nullptr)
@@ -491,7 +493,7 @@ void Player::Update()
 	}
 	else
 	{
-		
+		m_isKicking = false;
 		m_moveSpeedX = 0.0f;
 	}
 

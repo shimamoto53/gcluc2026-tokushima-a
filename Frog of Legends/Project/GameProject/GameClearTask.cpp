@@ -17,15 +17,15 @@ extern bool g_isGameClear;  // ←追加
 GameClearTask::GameClearTask()
     : Task(0)
 {
-    mp_clear = CImage::CreateImage("Clear.png");
+    mp_clear = CImage::CreateImage("Game_Clear.png");
 
     // 敵（ボス含む）削除
     EnemyManager::Instance()->KillAllEnemies();  // ←追加
     EnemyManager::Destroy();
 
-    mp_restart = CImage::CreateImage("gamestart.png");
+    mp_restart = CImage::CreateImage("Clear_Start.png");
     //mp_titleBtn = CImage::CreateImage("exitgame.png");
-    mp_exit = CImage::CreateImage("exitgame.png");
+    mp_exit = CImage::CreateImage("Clear_Exit.png");
 
     mp_marker = CImage::CreateImage("テッポウウオ.png");
 
@@ -144,7 +144,7 @@ void GameClearTask::Render()
     DebugPrint::Print("Clear Time %d:%02d", min, sec);
 
     int x = 700;
-    int y = 450;
+    int y = 750;
     int space = 120;
 
     // ボタン
@@ -172,7 +172,7 @@ void GameClearTask::Render()
     int time = Timer::GetResult();
 
    
-    FONT("score1")->Draw(670, 350, 1, 1, 1, "CLEAR TIME");
-    FONT("score2")->Draw(800, 550, 1, 1, 1, "%d:%02d", min, sec);
+    FONT("score1")->Draw(670, 450, 1, 1, 1, "CLEAR TIME");
+    FONT("score2")->Draw(800, 650, 1, 1, 1, "%d:%02d", min, sec);
     //FONT("timer")->Draw(800, 400, 1, 1, 1, "TIME %d:%02d", min, sec);
 }
