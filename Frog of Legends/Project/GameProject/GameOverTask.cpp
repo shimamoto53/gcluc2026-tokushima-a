@@ -9,6 +9,7 @@
 
 extern Field* g_field;
 extern Player* g_player;
+static bool isBgmStart = false;
 
 extern bool g_isGameOver;   // ←追加
 extern bool g_isGameClear;  // ←追加
@@ -74,6 +75,13 @@ void GameOverTask::Update()
             // フラグリセット
             g_isGameOver = false;
             g_isGameClear = false;
+
+            if (!isBgmStart)
+            {
+                SOUND("bgm")->Volume(0.2f);
+                SOUND("bgm")->Play(true);
+                isBgmStart = true;
+            }
 
             // フィールド生成
             g_field = new Field();

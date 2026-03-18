@@ -8,6 +8,7 @@
 
 extern Field* g_field;
 extern Player* g_player;
+static bool isBgmStart = false;
 
 GameExplainTask::GameExplainTask()
     : Task(0)
@@ -25,6 +26,7 @@ void GameExplainTask::Update()
     // Zキー → ゲームスタート
     if (PUSH(CInput::eButton7))
     {
+        SOUND("select")->Play();
         // 敵（ボス含む）削除
         EnemyManager::Destroy();
 
@@ -40,6 +42,13 @@ void GameExplainTask::Update()
         {
             g_player->Kill();
             g_player = nullptr;
+        }
+
+        if (!isBgmStart)
+        {
+            SOUND("bgm")->Volume(0.2f);
+            SOUND("bgm")->Play(true);
+            isBgmStart = true;
         }
 
         g_field = new Field();
@@ -59,6 +68,7 @@ void GameExplainTask::Update()
     // Bキー → タイトル
     if (PUSH(CInput::eButton6))
     {
+        SOUND("select")->Play();
         new TitleTask();
         Kill();
     }

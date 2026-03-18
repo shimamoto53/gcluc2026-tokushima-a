@@ -7,6 +7,7 @@
 #include "TitleTask.h"
 #include "Score.h"
 
+static bool isBgmStart = false;
 extern Field* g_field;
 extern Player* g_player;
 
@@ -80,6 +81,13 @@ void GameClearTask::Update()
             // フラグリセット
             g_isGameOver = false;
             g_isGameClear = false;
+
+            if (!isBgmStart)
+            {
+                SOUND("bgm")->Volume(0.2f);
+                SOUND("bgm")->Play(true);
+                isBgmStart = true;
+            }
 
             // 古いプレイヤー削除
             if (g_player)
