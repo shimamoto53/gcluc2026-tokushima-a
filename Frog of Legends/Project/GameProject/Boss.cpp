@@ -47,7 +47,7 @@ Boss::Boss(BossType type, const CVector3D& pos)
 	, mp_bodyImage(nullptr)
 	, m_type(type)
 {
-	m_hp = 3000;
+	m_hp = 6000;
 
 	mp_headImage = CImage::CreateImage(
 		"Boss_neck.png",

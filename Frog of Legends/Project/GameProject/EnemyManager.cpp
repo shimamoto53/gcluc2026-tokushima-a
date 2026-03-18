@@ -8,7 +8,7 @@ extern bool g_isGameOver;
 extern bool g_isGameClear;
 
 #define SPAWN_COUNT 90			// “G¶¬”
-#define SPAWN_INTERVAL 3.0f		// “G‚ğ¶¬‚·‚éŠÔŠuŠÔ
+#define SPAWN_INTERVAL 1.5f		// “G‚ğ¶¬‚·‚éŠÔŠuŠÔ
 #define SPAWN_RANGE_MIN_X (SCREEN_WIDTH - 150)	// X²‚Ì“G¶¬”ÍˆÍ‚ÌÅ¬’l
 #define SPAWN_RANGE_MAX_X (SCREEN_WIDTH - 50)	// X²‚Ì“G¶¬”ÍˆÍ‚ÌÅ‘å’l
 #define SPAWN_RANGE_MIN_Z -200	// Z²‚Ì“G¶¬”ÍˆÍ‚ÌÅ¬’l
@@ -142,7 +142,7 @@ EnemyBase* EnemyManager::GetNearEnemy(const CVector3D& pos, const CVector3D& ran
 void EnemyManager::Update()
 {
 	// c‚èŠÔ‚ª30•bˆÈ‰º‚Åƒ{ƒXoŒ»
-	if (!m_isBossSpawned && Timer::GetRemaining() <= 55)
+	if (!m_isBossSpawned && Timer::GetRemaining() <= 0)
 	{
 		KillAllEnemies();
 
