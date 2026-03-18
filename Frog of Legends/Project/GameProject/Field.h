@@ -21,6 +21,8 @@ public:
 
 protected:
 	CImage* mp_fieldImg;	// フィールドの画像
+	CImage* mp_fieldImg2;	// フィールドの画像2
+	bool m_isSecondPhase;
 	float m_scrollx = 0.0f;
 	float m_scrollspeed = 2.0f;
 };

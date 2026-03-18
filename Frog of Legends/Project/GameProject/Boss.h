@@ -33,6 +33,12 @@ public:
 	// 描画処理
 	void Render() override;
 
+	CVector3D GetHitRange() const override;
+
+	CVector3D GetHeadPos() const;
+
+	CVector3D GetHeadHitRange() const;
+
 private:
 
 	// ボスの状態
@@ -70,6 +76,13 @@ private:
 	// 攻撃速度
 	float m_attackSpeed;
 
+	float m_bodyHitW;
+	float m_bodyHitH;
+	float m_bodyX;
+	float m_bodyY;
+
+	CVector3D m_hitRange;
+
 	// アニメーション種類
 	enum class EAnimType
 	{
@@ -88,4 +101,6 @@ private:
 
 	// ボスタイプ
 	BossType m_type;
+
+	CVector3D m_headHitRange;
 };

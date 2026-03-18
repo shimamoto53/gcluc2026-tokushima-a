@@ -77,7 +77,7 @@ void GameOverTask::Update()
 
             // ƒvƒŒƒCƒ„[¶¬
             g_player = new Player(
-                CVector3D(SCREEN_WIDTH * 0.5f, 0.0f, 0.0f));
+                CVector3D(SCREEN_WIDTH * 0.2f, 0.0f, 0.0f));
 
             g_player->SetField(g_field);
 

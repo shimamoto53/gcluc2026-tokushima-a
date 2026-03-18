@@ -13,11 +13,11 @@ extern bool g_isGameOver;
 extern Field* g_field;
 
 #define CHIP_SIZE 512
-#define CENTER_POS CVector2D(300.0f,300.0f)
+#define CENTER_POS CVector2D(100.0f,300.0f)
 #define ENEMY_SPEED 5.0f
 
 #define BOSSATTACK_AREA_MIN_Y -100//200
-#define BOSSATTACK_AREA_MAX_Y 200//(SCREEN_HEIGHT - 200)
+#define BOSSATTACK_AREA_MAX_Y 350//(SCREEN_HEIGHT - 200)
 
 // ボスのアニメーションデータ
 TexAnimData Boss::ANIM_DATA[(int)EAnimType::Num] =
@@ -47,7 +47,7 @@ Boss::Boss(BossType type, const CVector3D& pos)
 	, mp_bodyImage(nullptr)
 	, m_type(type)
 {
-	m_hp = 100;
+	m_hp = 3000;
 
 	mp_headImage = CImage::CreateImage(
 		"Boss_neck.png",
@@ -63,8 +63,11 @@ Boss::Boss(BossType type, const CVector3D& pos)
 	mp_headImage->SetFlipH(false);
 	mp_bodyImage->SetFlipH(false);
 
-	m_headX = m_pos.x;
-	m_startX = m_pos.x;
+	m_bodyHitW = 350;
+	m_bodyHitH = 300;
+
+	m_startX = m_pos.x - 230;
+	m_headX = m_startX;
 	m_headY = 0;
 
 	m_attackSpeed = 15.0f;
@@ -72,6 +75,8 @@ Boss::Boss(BossType type, const CVector3D& pos)
 	m_state = EState::Idle;
 	m_stateStep = 0;
 	mp_headImage->ChangeAnimation((int)EAnimType::Idle);
+	m_hitRange = CVector3D(200.0f, 0.0f, 400.0f);
+	m_headHitRange = CVector3D(100.0f, 100.0f, 100.0f);
 }
 
 // デストラクタ
@@ -166,7 +171,7 @@ void Boss::StateAttack()
 {
 	m_headX -= m_attackSpeed;
 
-	if (m_headX < 0)
+	if (m_headX < 5)
 	{
 		ChangeState(EState::Return);
 	}
@@ -217,6 +222,21 @@ void Boss::StateDeath()
 	}
 }
 
+CVector3D Boss::GetHitRange() const
+{
+	return m_hitRange;
+}
+
+CVector3D Boss::GetHeadPos() const
+{
+	return CVector3D(m_headX, m_pos.y, m_headY);
+}
+
+CVector3D Boss::GetHeadHitRange() const
+{
+	return m_headHitRange;
+}
+
 // 更新処理
 void Boss::Update()
 {
@@ -245,14 +265,36 @@ void Boss::Update()
 	case EState::Return: StateReturn(); break;
 	case EState::Death:  StateDeath();  break;
 	}
+	float bodyX = SCREEN_WIDTH - 320;
+	float bodyY = SCREEN_HEIGHT / 2.25;
 
-	mp_bodyImage->SetPos(SCREEN_WIDTH - 300, SCREEN_HEIGHT / 2);
+	mp_bodyImage->SetPos(bodyX,bodyY);
 	//float screenY = SCREEN_HEIGHT / 2 - m_headY;
 	//mp_headImage->SetPos(m_headX, m_headY);
+	/*
 	m_pos.x = m_headX;
-	m_pos.z = m_headY;
+	m_pos.z = m_headY; */
+
+	//mp_headImage->SetPos(CalcScreenPos());
+	/*CVector3D old = m_pos;
+
+	// ★一時的に頭座標入れる
+	m_pos.x = m_headX;   
+	m_pos.z = m_headY;   
 
 	mp_headImage->SetPos(CalcScreenPos());
+
+	// ★戻す（重要）
+	m_pos = old;  */
+	
+	CVector3D old = m_pos;              // ★元の座標保存
+
+	m_pos.x = m_headX;                  // ★頭のX
+	m_pos.z = m_headY;                  // ★頭のZ（プレイヤーと同じ扱い）
+
+	mp_headImage->SetPos(CalcScreenPos()); // ★プレイヤーと同じ変換
+
+	m_pos = old;                        // ★元に戻す（超重要）
 
 	mp_headImage->UpdateAnimation();
 	mp_bodyImage->UpdateAnimation();
@@ -262,7 +304,7 @@ void Boss::Update()
 void Boss::Render()
 {
 	if (g_isGameClear) return;
-	float screenY = SCREEN_HEIGHT / 2 + m_headY;
+	float screenY = SCREEN_HEIGHT / 2 - m_headY;
 	mp_bodyImage->Draw();
 	mp_headImage->Draw();
 }

@@ -11,5 +11,10 @@ public:
 	// デストラクタ
 	virtual ~EnemyBase();
 
+	virtual CVector3D GetHitRange() const
+	{
+		return CVector3D(50.0f, 50.0f, 50.0f);
+	}
+
 private:
 };

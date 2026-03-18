@@ -63,6 +63,7 @@ EnemyBase* EnemyManager::GetNearEnemy(const CVector3D& pos, const CVector3D& ran
 	// 生成済みの全ての敵の中から一番近い敵を探す
 	EnemyBase* nearEnemy = nullptr;
 	float nearDist = 0.0f;
+	/*
 	for (EnemyBase* enemy : m_enemies)
 	{
 		// 各軸の距離を求めて、範囲外であればスルー
@@ -71,7 +72,62 @@ EnemyBase* EnemyManager::GetNearEnemy(const CVector3D& pos, const CVector3D& ran
 		if (abs(pos.y - enemyPos.y) > range.y) continue;
 		if (abs(pos.z - enemyPos.z) > range.z) continue;
 
+		
+
+		Boss* boss = dynamic_cast<Boss*>(enemy);
+		if (boss)
+		{
+			CVector3D headPos = boss->GetHeadPos();
+			CVector3D headRange = boss->GetHeadHitRange();
+
+			if (abs(pos.x - headPos.x) <= (range.x + headRange.x) &&
+				abs(pos.y - headPos.y) <= (range.y + headRange.y) &&
+				abs(pos.z - headPos.z) <= (range.z + headRange.z))
+			{
+				return enemy; // 頭にヒット
+			}
+		}
+
+		CVector3D enemyRange = enemy->GetHitRange();
+
+		if (abs(pos.x - enemyPos.x) > (range.x + enemyRange.x)) continue;
+		if (abs(pos.y - enemyPos.y) > (range.y + enemyRange.y)) continue;
+		if (abs(pos.z - enemyPos.z) > (range.z + enemyRange.z)) continue;
+
 		// 現在の一番近い敵より近い場合は、一番近い敵に設定
+		float dist = (pos - enemyPos).Length();
+		if (nearEnemy == nullptr || dist < nearDist)
+		{
+			nearEnemy = enemy;
+			nearDist = dist;
+		}
+	}*/
+	for (EnemyBase* enemy : m_enemies)
+	{
+		Boss* boss = dynamic_cast<Boss*>(enemy);
+
+		// ★先に頭判定
+		if (boss)
+		{
+			CVector3D headPos = boss->GetHeadPos();
+			CVector3D headRange = boss->GetHeadHitRange();
+
+			if (abs(pos.x - headPos.x) <= (range.x + headRange.x) &&
+				abs(pos.y - headPos.y) <= (range.y + headRange.y) &&
+				abs(pos.z - headPos.z) <= (range.z + headRange.z))
+			{
+				return enemy; // ★ここで即ヒット
+			}
+		}
+
+		// ★その後にボディ判定
+		CVector3D enemyPos = enemy->GetPos();
+		CVector3D enemyRange = enemy->GetHitRange();
+
+		if (abs(pos.x - enemyPos.x) > (range.x + enemyRange.x)) continue;
+		if (abs(pos.y - enemyPos.y) > (range.y + enemyRange.y)) continue;
+		if (abs(pos.z - enemyPos.z) > (range.z + enemyRange.z)) continue;
+
 		float dist = (pos - enemyPos).Length();
 		if (nearEnemy == nullptr || dist < nearDist)
 		{
@@ -86,7 +142,7 @@ EnemyBase* EnemyManager::GetNearEnemy(const CVector3D& pos, const CVector3D& ran
 void EnemyManager::Update()
 {
 	// 残り時間が30秒以下でボス出現
-	if (!m_isBossSpawned && Timer::GetRemaining() <= 55)
+	if (!m_isBossSpawned && Timer::GetRemaining() <= 0)
 	{
 		KillAllEnemies();
 

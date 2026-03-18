@@ -10,7 +10,7 @@
 extern Field* g_field;
 
 #define CHIP_SIZE 500		// 1コマのサイズ
-#define CENTER_POS CVector2D(250.0f, 444.0f)	// 中心座標
+#define CENTER_POS CVector2D(250.0f, 500.0f)	// 中心座標
 #define MOVE_SPEED_X 5.0f	// 横方向の移動速度
 #define MOVE_SPEED_Z 3.0f	// 奥方向の移動速度
 #define JUMP_SPEED 23.0f	// ジャンプ速度
@@ -20,9 +20,9 @@ extern Field* g_field;
 
 
 #define SPAWN_PRANGE_MIN_X 100	// X軸の敵生成範囲の最小値
-#define SPAWN_PRANGE_MAX_X (SCREEN_WIDTH - 100)	// X軸の敵生成範囲の最大値
+#define SPAWN_PRANGE_MAX_X (SCREEN_WIDTH - 550)	// X軸の敵生成範囲の最大値
 #define SPAWN_PRANGE_MIN_Z -200	// Z軸の敵生成範囲の最小値
-#define SPAWN_PRANGE_MAX_Z 100	// Z軸の敵生成範囲の最大値
+#define SPAWN_PRANGE_MAX_Z 200	// Z軸の敵生成範囲の最大値
 
 bool g_isGameOver = false;
 bool g_isGameClear = false;
@@ -244,7 +244,7 @@ void Player::StateJump()
 			break;
 	}
 	int score = Score::Get();
-	if (PUSH(CInput::eButton2) && score >= 50 && m_kickCoolTime == 0)
+	if (PUSH(CInput::eButton2) && score >= 100 && m_kickCoolTime == 0)
 	{
 		ChangeState(EState::Kick);
 		return;
@@ -373,7 +373,7 @@ void Player::Update()
 
 	//敵と接触スタン
 	EnemyBase* enemy = EnemyManager::Instance()->GetNearEnemy(m_pos, CVector3D(50, 50, 50));
-	if (enemy != nullptr && m_state == EState::Idle)
+	if (enemy != nullptr && m_state == EState::Idle && m_state != EState::Kick)
 	{
 		ChangeState(EState::Stun);
 		SOUND("damage")->Play();
