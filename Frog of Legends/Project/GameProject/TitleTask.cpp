@@ -20,7 +20,7 @@ TitleTask::TitleTask()
     mp_explain = CImage::CreateImage("Game_Explain.png");
     mp_exit = CImage::CreateImage("Game_Exit.png");
 
-    mp_marker = CImage::CreateImage("テッポウウオ.png");
+    mp_marker = CImage::CreateImage("SmallMarker.png");
 
     m_select = 0;
 }

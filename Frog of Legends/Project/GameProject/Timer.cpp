@@ -23,7 +23,7 @@ void Timer::Update()
     int min = remain / 60;
     int sec = remain % 60;
 
-    DebugPrint::Print("TIME %d:%02d", min, sec);
+  //  DebugPrint::Print("TIME %d:%02d", min, sec);
 
     if (remain <= 0)
     {

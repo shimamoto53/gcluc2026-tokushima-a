@@ -37,6 +37,8 @@ private:
 	// キックのための左右状態管理
 	bool m_isFacingLeft;
 
+	bool m_isReady;
+
 	// 待機時の更新処理
 	void StateIdle();
 	// ジャンプ中の更新処理

@@ -12,7 +12,7 @@ extern bool g_isGameClear;
 extern bool g_isGameOver;
 extern Field* g_field;
 
-#define CHIP_SIZE 512
+#define CHIP_SIZE 800
 #define CENTER_POS CVector2D(100.0f,300.0f)
 #define ENEMY_SPEED 5.0f
 
@@ -47,15 +47,15 @@ Boss::Boss(BossType type, const CVector3D& pos)
 	, mp_bodyImage(nullptr)
 	, m_type(type)
 {
-	m_hp = 6000;
+	m_hp = 10000;
 
 	mp_headImage = CImage::CreateImage(
 		"Boss_neck.png",
 		ANIM_DATA,
-		332,332
+		1920,332
 	);
 
-	mp_bodyImage = CImage::CreateImage("Boss.png");
+	mp_bodyImage = CImage::CreateImage("BigBoss.png");
 
 	mp_headImage->SetCenter(CENTER_POS);
 	mp_bodyImage->SetCenter(CVector2D(0, 0));
@@ -75,8 +75,8 @@ Boss::Boss(BossType type, const CVector3D& pos)
 	m_state = EState::Idle;
 	m_stateStep = 0;
 	mp_headImage->ChangeAnimation((int)EAnimType::Idle);
-	m_hitRange = CVector3D(525.0f, 0.0f, 400.0f);
-	m_headHitRange = CVector3D(100.0f, 100.0f, 100.0f);
+	m_hitRange = CVector3D(450.0f, 0.0f, 400.0f);
+	m_headHitRange = CVector3D(100.0f, 100.0f, 150.0f);
 }
 
 // デストラクタ
@@ -265,7 +265,7 @@ void Boss::Update()
 	case EState::Return: StateReturn(); break;
 	case EState::Death:  StateDeath();  break;
 	}
-	float bodyX = SCREEN_WIDTH - 570;
+	float bodyX = SCREEN_WIDTH - 690;
 	float bodyY = SCREEN_HEIGHT / 2.25;
 
 	mp_bodyImage->SetPos(bodyX,bodyY);

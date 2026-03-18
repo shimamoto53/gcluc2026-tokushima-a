@@ -269,7 +269,7 @@ void Player::StateJump()
 			break;
 	}
 	int score = Score::Get();
-	if (PUSH(CInput::eButton2) && score >= 0 && m_kickCoolTime == 0)
+	if (PUSH(CInput::eButton2) && score >= 150 && m_kickCoolTime == 0)
 	{
 		ChangeState(EState::Kick);
 		return;
@@ -438,6 +438,13 @@ void Player::Update()
 	// ゲームオーバー／クリア中は何もしない
 	if (g_isGameOver || g_isGameClear)
 		return;
+	// スコアが150以上でキックが使用可能音で知らせる
+	int score = Score::Get();
+	if (score >= 150 && !m_isReady)
+	{
+		SOUND("ready")->Play();
+		m_isReady = true;
+	}
 
 	//敵と接触スタン
 	if (m_state != EState::Kick && m_state != EState::Stun)
@@ -503,8 +510,8 @@ void Player::Update()
 
 	if (!g_isGameClear)
 	{
-		DebugPrint::Print("プレイヤー位置：%.2f, %.2f, %.2f", m_pos.x, m_pos.y, m_pos.z);
-		DebugPrint::Print("Score:%d", Score::Get());
+		//DebugPrint::Print("プレイヤー位置：%.2f, %.2f, %.2f", m_pos.x, m_pos.y, m_pos.z);
+	// 	DebugPrint::Print("Score:%d", Score::Get());
 	}
 
 	//  タイマー判定でゲームオーバー 
@@ -570,7 +577,7 @@ void Player::Render()
 
 	if (m_isHit)
 	{
-		DebugPrint::Print("HIT!!");
+		//DebugPrint::Print("HIT!!");
 	}
 
 	// スタン中は点滅

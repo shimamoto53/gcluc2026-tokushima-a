@@ -2,8 +2,8 @@
 #include "Score.h"
 #include "EnemyManager.h"
 
-#define CHIP_SIZE 256		// 1コマのサイズ
-#define CENTER_POS CVector2D(128.0f, 200.0f)	// 中心座標
+#define CHIP_SIZE 170		// 1コマのサイズ
+#define CENTER_POS CVector2D(85.0f, 170.0f)	// 中心座標
 #define ENEMY_SPEED 5.0f	// 敵の移動速度
 
 // スライムのアニメーションデータ
@@ -37,9 +37,9 @@ Slime::Slime(SlimeType type, const CVector3D& pos)
 
 	// スライムの画像を読み込み
 	std::string imagePath;
-	if (m_type == SlimeType::Blue) imagePath = "enemy.png";
-	else if (m_type == SlimeType::Green) imagePath = "enemy.png";
-	else if (m_type == SlimeType::Yellow) imagePath = "enemy.png";
+	if (m_type == SlimeType::Blue) imagePath = "SmallEnemy.png";
+	else if (m_type == SlimeType::Green) imagePath = "SmallEnemy.png";
+	else if (m_type == SlimeType::Yellow) imagePath = "SmallEnemy.png";
 	mp_image = CImage::CreateImage
 	(
 		imagePath.c_str(),	// 画像ファイルのパス

@@ -54,7 +54,7 @@ void Field::Update()
 		// ★残り20秒で後半開始
 		if (Timer::GetRemaining() <= 20) {
 			m_isSecondPhase = true;
-			m_scrollspeed = 1.5f; // ★好きな速度
+			m_scrollspeed = 3.0f; // ★好きな速度
 		}
 	}
 	// 後半フェーズのスクロール

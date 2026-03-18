@@ -27,7 +27,7 @@ GameClearTask::GameClearTask()
     //mp_titleBtn = CImage::CreateImage("exitgame.png");
     mp_exit = CImage::CreateImage("Clear_Exit.png");
 
-    mp_marker = CImage::CreateImage("テッポウウオ.png");
+    mp_marker = CImage::CreateImage("SmallMarker.png");
 
     m_select = 0;
 
@@ -141,7 +141,7 @@ void GameClearTask::Render()
     int min = m_clearTime / 60;
     int sec = m_clearTime % 60;
 
-    DebugPrint::Print("Clear Time %d:%02d", min, sec);
+//    DebugPrint::Print("Clear Time %d:%02d", min, sec);
 
     int x = 700;
     int y = 750;

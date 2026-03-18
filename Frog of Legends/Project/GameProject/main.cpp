@@ -95,6 +95,7 @@ void Init()
 	SOUND("select")->Load("Select.wav");
 	SOUND("bgm")->Load("BGM.wav");
 	SOUND("big")->Load("Big.wav");
+	SOUND("ready")->Load("Ready.wav");
 	
 }
 
@@ -177,8 +178,17 @@ int __main(int* argcp, char** argv)
 	glfwSetErrorCallback(error_callback);
 	if (!glfwInit()) return -1;
 	//	glutInit(argcp, argv);
+// ★修正：起動時フルスクリーンにする
+	GLFWmonitor* primaryMonitor = glfwGetPrimaryMonitor();   // ★修正：メインモニター取得
+	const GLFWvidmode* mode = glfwGetVideoMode(primaryMonitor);  // ★修正：モニター解像度取得
 
-	GL::window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Simple", nullptr, nullptr);
+	GL::window = glfwCreateWindow(
+		mode->width,       // ★修正：フルスクリーン幅
+		mode->height,      // ★修正：フルスクリーン高さ
+		"Simple",          // ウィンドウタイトル
+		primaryMonitor,    // ★修正：モニター指定でフルスクリーン化
+		nullptr
+	);
 	glfwGetWindowSize(GL::window, &GL::window_width, &GL::window_height);
 	glfwGetWindowPos(GL::window, &GL::window_x, &GL::window_y);
 

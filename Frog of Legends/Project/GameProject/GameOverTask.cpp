@@ -24,7 +24,7 @@ GameOverTask::GameOverTask()
     mp_exit = CImage::CreateImage("Over_Exit.png");
 
     // マーカー
-    mp_marker = CImage::CreateImage("テッポウウオ.png");
+    mp_marker = CImage::CreateImage("SmallMarker.png");
 
     m_select = 0;
 
