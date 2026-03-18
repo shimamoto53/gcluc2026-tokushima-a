@@ -17,11 +17,11 @@ extern bool g_isGameClear;  // ←追加
 GameOverTask::GameOverTask()
     : Task(0)
 {
-    mp_over = CImage::CreateImage("Over.png");
+    mp_over = CImage::CreateImage("Game_Over.png");
 
     // ボタン
-    mp_restart = CImage::CreateImage("gamestart.png");
-    mp_exit = CImage::CreateImage("exitgame.png");
+    mp_restart = CImage::CreateImage("Over_Start.png");
+    mp_exit = CImage::CreateImage("Over_Exit.png");
 
     // マーカー
     mp_marker = CImage::CreateImage("テッポウウオ.png");

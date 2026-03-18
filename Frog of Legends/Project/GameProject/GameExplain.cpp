@@ -13,7 +13,7 @@ static bool isBgmStart = false;
 GameExplainTask::GameExplainTask()
     : Task(0)
 {
-    mp_explain = CImage::CreateImage("set.png");
+    mp_explain = CImage::CreateImage("ExplainScreen.png");
 }
 
 GameExplainTask::~GameExplainTask()
