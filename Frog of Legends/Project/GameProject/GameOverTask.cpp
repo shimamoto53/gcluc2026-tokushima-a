@@ -5,6 +5,7 @@
 #include "EnemyManager.h"
 #include "Timer.h"
 #include "TitleTask.h"
+#include "Score.h"
 
 extern Field* g_field;
 extern Player* g_player;
@@ -29,6 +30,8 @@ GameOverTask::GameOverTask()
     // 敵生成停止
    // EnemyManager::Destroy();
     EnemyManager::Instance()->KillAllEnemies();
+
+    g_isGame = false;
 }
 
 GameOverTask::~GameOverTask()
@@ -85,8 +88,11 @@ void GameOverTask::Update()
             EnemyManager::Instance();
             EnemyManager::Instance()->Reset();
 
+            Score::Reset();
+
             // タイマーリセット
             Timer::Start();
+            g_isGame = true;
 
             Kill();
             break;

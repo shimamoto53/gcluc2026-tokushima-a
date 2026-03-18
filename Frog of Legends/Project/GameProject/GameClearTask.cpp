@@ -34,6 +34,8 @@ GameClearTask::GameClearTask()
     int elapsed = Timer::GetElapsed();
     m_clearTime = 60 - elapsed;
     if (m_clearTime < 0) m_clearTime = 0;
+
+    g_isGame = false;
 }
 
 GameClearTask::~GameClearTask()
@@ -106,8 +108,10 @@ void GameClearTask::Update()
             EnemyManager::Instance();
             EnemyManager::Instance()->Reset();
 
+            Score::Reset();
             // タイマーリセット
             Timer::Start();
+            g_isGame = true;
 
             Kill();
 
@@ -151,6 +155,8 @@ void GameClearTask::Render()
 
     mp_marker->SetPos(markerX, markerY);
     mp_marker->Draw();
+    CREATE_FONT_F("score1", "C:\\Windows\\Fonts\\meiryo.ttc", 100);
+    CREATE_FONT_F("score2", "C:\\Windows\\Fonts\\meiryo.ttc", 150);
    // CREATE_FONT_F("score", "C:\\Windows\\Fonts\\msgothic.ttc", 80);
    /* FONT("score")->Draw(850, 450, 1, 1, 1, "スコア");
     FONT("score")->Draw(910, 560, 1, 1, 1, "%d", Score::Get());*/
@@ -158,6 +164,7 @@ void GameClearTask::Render()
     int time = Timer::GetResult();
 
    
-
-    FONT("timer")->Draw(800, 400, 1, 1, 1, "TIME %d:%02d", min, sec);
+    FONT("score1")->Draw(850, 350, 1, 1, 1, "TIME");
+    FONT("score2")->Draw(800, 550, 1, 1, 1, "%d:%02d", min, sec);
+    //FONT("timer")->Draw(800, 400, 1, 1, 1, "TIME %d:%02d", min, sec);
 }

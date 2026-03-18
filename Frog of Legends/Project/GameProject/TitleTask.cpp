@@ -5,6 +5,7 @@
 #include "EnemyManager.h"
 #include "Timer.h"
 #include "GameExplain.h"
+#include "Score.h"
 
 static bool isBgmStart = false;
 extern Field* g_field;
@@ -61,7 +62,10 @@ void TitleTask::Update()
         {
         case 0: // Game Start
         {
+            Score::Reset();
 
+            Timer::Start();   // タイマー開始
+            g_isGame = true;
 
             if (!isBgmStart)
             {
@@ -78,8 +82,6 @@ void TitleTask::Update()
             g_player->SetField(g_field);
 
             EnemyManager::Instance();
-
-            Timer::Start();
 
             Kill();
 

@@ -12,6 +12,7 @@
 //--------------------------------------------
 Field* g_field = nullptr;
 Player* g_player = nullptr;
+bool g_isGame = false;
 
 void MainLoop()
 {
@@ -29,13 +30,17 @@ void MainLoop()
 		bgmStart = true;
 	}
 	*/
-	Timer::Update();
 
 	//タスクリストに登録されたタスクを全て更新
 	TaskManager::Instance()->Update();
 
 	//タスクリストに登録されたタスクを全て描画
 	TaskManager::Instance()->Render();
+
+	if (g_isGame)
+	{
+		Timer::Update();
+	}
 
 	//デバック文字の描画
 	DebugPrint::Render();
@@ -83,7 +88,6 @@ void Init()
 	//タイトル生成
 	new TitleTask();
 
-	Timer::Start();
 	SOUND("attack")->Load("Attack.wav");
 	SOUND("kick")->Load("Kick.wav");
 	SOUND("damage")->Load("Damage.wav");
