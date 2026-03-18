@@ -241,14 +241,35 @@ void Player::StateJump()
 		// ステップ1：ジャンプ終了
 		case 1:
 			// 接地したら、待機状態へ移行
+		/*	if (m_isGrounded)
+			{
+				ChangeState(EState::Idle);
+			}
+			break;*/
+			// Y軸の速度が0以下になった瞬間がジャンプピーク
+			if (!m_isJumpPeak && m_moveSpeedY <= 0.0f)
+			{
+				m_isJumpPeak = true;
+				m_peakTimer = 0; // タイマー開始
+			}
+
+			if (m_isJumpPeak)
+			{
+				m_peakTimer++; // フレームカウント
+				if (m_peakTimer > 1) // 10フレーム経過で無効化
+					m_isJumpPeak = false;
+			}
+
+			// 接地したら待機状態へ
 			if (m_isGrounded)
 			{
+				m_isJumpPeak = false; // リセット
 				ChangeState(EState::Idle);
 			}
 			break;
 	}
 	int score = Score::Get();
-	if (PUSH(CInput::eButton2) && score >= 100 && m_kickCoolTime == 0)
+	if (PUSH(CInput::eButton2) && score >= 0 && m_kickCoolTime == 0)
 	{
 		ChangeState(EState::Kick);
 		return;
@@ -309,6 +330,7 @@ void Player::StateKick()
 		m_moveSpeedY = -10.0f;
 
 		m_moveSpeedX = 10.0f;
+		m_isKicking = true;
 		/*
 		if (m_isFacingLeft)      // 左向き
 			m_pos.x -= m_moveSpeedX;
@@ -318,7 +340,7 @@ void Player::StateKick()
 		m_stateStep++;
 		break;
 	case 1:
-		if (mp_image->GetIndex() >= ATTACK_INDEX)
+		/*/if (mp_image->GetIndex() >= ATTACK_INDEX)
 		{
 			EnemyBase* enemy = EnemyManager::Instance()->GetNearEnemy(m_pos, ATTACK_RANGE);
 			if (enemy)
@@ -332,15 +354,39 @@ void Player::StateKick()
 			m_stateStep++;
 			
 		}
+		break;*/
+		if (mp_image->GetIndex() >= ATTACK_INDEX)
+		{
+			EnemyBase* enemy = EnemyManager::Instance()->GetNearEnemy(m_pos, ATTACK_RANGE);
+			if (enemy)
+			{
+				int damage = 300; // 通常ダメージ
+
+				// ジャンプピークから10フレーム以内ならダメージ増加
+				if (m_isJumpPeak && m_peakTimer <= 1)
+					damage = 600;
+
+				enemy->TakeDamage(damage);
+
+				SOUND("kick")->Play();
+				m_isHit = true;
+				m_hitTimer = 30;   // 表示時間（30フレーム）
+			}
+
+			m_kickCoolTime = 180;
+			m_stateStep++;
+		}
 		break;
 	case 2:
 		if (m_isGrounded)
 		{
 			if (m_isFacingLeft)      // 左向き
 				m_pos.x += m_moveSpeedX;
+
 			else                     // 右向き
 				m_pos.x -= m_moveSpeedX;
 
+			m_isKicking = false;
 			ChangeState(EState::Idle);
 			
 		}
@@ -386,15 +432,18 @@ void Player::Update()
 		return;
 
 	//敵と接触スタン
-	EnemyBase* enemy = EnemyManager::Instance()->GetNearEnemy(m_pos, CVector3D(50, 50, 50));
-	if (enemy != nullptr && m_state == EState::Idle && m_state != EState::Kick)
+	if (!m_isKicking && m_state != EState::Stun)
 	{
-		ChangeState(EState::Stun);
-		SOUND("damage")->Play();
-		stunTimer = 50.0f;
-
-		blinkTimer = 0;
-		blink = true;
+		EnemyBase* enemy = EnemyManager::Instance()->GetNearEnemy(m_pos, CVector3D(50, 50, 50));
+		if (enemy != nullptr)
+		{
+			// スタン発生
+			ChangeState(EState::Stun);
+			SOUND("damage")->Play();
+			stunTimer = 50.0f;
+			blinkTimer = 0;
+			blink = true;
+		}
 	}
 
 	// キックのクールタイムを減少

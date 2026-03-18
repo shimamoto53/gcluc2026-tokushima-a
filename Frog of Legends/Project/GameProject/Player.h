@@ -52,6 +52,8 @@ private:
 	
 	bool m_isHit;
 	int m_hitTimer;
+	bool m_isJumpPeak = false;    // ジャンプの最高地点に到達したか
+	int m_peakTimer = 0;          // 最高地点到達からのフレームカウント
 
 	Field* m_field = nullptr;
 
@@ -82,6 +84,7 @@ private:
 
 	int blinkTimer = 0;   // 点滅用タイマー
 	bool blink = true;    // 表示ON/OFF
+	bool m_isKicking = false; // キック中かどうか
 
 	// ゲーム状態フラグ
 	//extern bool g_isGameOver;
