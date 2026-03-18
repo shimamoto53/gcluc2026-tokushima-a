@@ -98,12 +98,14 @@ Player::Player(const CVector3D& pos)
 	, m_state(EState::Idle)
 	, m_stateStep(0)
 	, mp_image(nullptr)
+	, m_isFacingLeft(false)
 
 {
 	m_hp = 100;
 	
 	m_isHit = false;
 	m_hitTimer = 0;
+	
 
 	// プレイヤーの画像を読み込み
 	mp_image = CImage::CreateImage
@@ -143,6 +145,7 @@ bool Player::UpdateMove()
 			// 左方向へ移動
 			m_pos.x -= MOVE_SPEED_X;
 			mp_image->SetFlipH(true);
+			m_isFacingLeft = true;
 			isMove = true;
 		}
 		// 右キーを押している間
@@ -151,6 +154,7 @@ bool Player::UpdateMove()
 			// 右方向へ移動
 			m_pos.x += MOVE_SPEED_X;
 			mp_image->SetFlipH(false);
+			m_isFacingLeft = false;
 			isMove = true;
 		}
 		// 上キーを押している間
@@ -303,8 +307,14 @@ void Player::StateKick()
 		mp_image->ChangeAnimation((int)EAnimType::Kick, false);
 
 		m_moveSpeedY = -10.0f;
-		m_moveSpeedX = 10.0f;
 
+		m_moveSpeedX = 10.0f;
+		/*
+		if (m_isFacingLeft)      // 左向き
+			m_pos.x -= m_moveSpeedX;
+		else                     // 右向き
+			m_pos.x += m_moveSpeedX;
+			*/
 		m_stateStep++;
 		break;
 	case 1:
@@ -326,7 +336,11 @@ void Player::StateKick()
 	case 2:
 		if (m_isGrounded)
 		{
-			m_pos.x -= m_moveSpeedX;
+			if (m_isFacingLeft)      // 左向き
+				m_pos.x += m_moveSpeedX;
+			else                     // 右向き
+				m_pos.x -= m_moveSpeedX;
+
 			ChangeState(EState::Idle);
 			
 		}
@@ -415,10 +429,14 @@ void Player::Update()
 	// X軸の移動を座標に反映
 	if (m_state == EState::Kick)
 	{
-		m_pos.x += m_moveSpeedX;
+		if (m_isFacingLeft)      // 左向き
+			m_pos.x -= m_moveSpeedX;
+		else                     // 右向き
+			m_pos.x += m_moveSpeedX;
 	}
 	else
 	{
+		
 		m_moveSpeedX = 0.0f;
 	}
 

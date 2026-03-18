@@ -34,6 +34,8 @@ private:
 
 	// 移動処理の更新
 	bool UpdateMove();
+	// キックのための左右状態管理
+	bool m_isFacingLeft;
 
 	// 待機時の更新処理
 	void StateIdle();
