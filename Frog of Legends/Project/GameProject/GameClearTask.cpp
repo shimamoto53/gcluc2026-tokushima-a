@@ -33,7 +33,7 @@ GameClearTask::GameClearTask()
 
     // Žc‚èŽžŠÔ
     int elapsed = Timer::GetElapsed();
-    m_clearTime = 60 - elapsed;
+    m_clearTime = 180 - elapsed;
     if (m_clearTime < 0) m_clearTime = 0;
 
     g_isGame = false;
@@ -172,7 +172,7 @@ void GameClearTask::Render()
     int time = Timer::GetResult();
 
    
-    FONT("score1")->Draw(850, 350, 1, 1, 1, "TIME");
+    FONT("score1")->Draw(670, 350, 1, 1, 1, "CLEAR TIME");
     FONT("score2")->Draw(800, 550, 1, 1, 1, "%d:%02d", min, sec);
     //FONT("timer")->Draw(800, 400, 1, 1, 1, "TIME %d:%02d", min, sec);
 }
