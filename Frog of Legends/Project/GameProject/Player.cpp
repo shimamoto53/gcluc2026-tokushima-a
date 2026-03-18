@@ -9,8 +9,8 @@
 
 extern Field* g_field;
 
-#define CHIP_SIZE 500		// 1コマのサイズ
-#define CENTER_POS CVector2D(250.0f, 500.0f)	// 中心座標
+#define CHIP_SIZE 332		// 1コマのサイズ
+#define CENTER_POS CVector2D(166.0f, 332.0f)	// 中心座標
 #define MOVE_SPEED_X 5.0f	// 横方向の移動速度
 #define MOVE_SPEED_Z 3.0f	// 奥方向の移動速度
 #define JUMP_SPEED 23.0f	// ジャンプ速度
@@ -110,7 +110,7 @@ Player::Player(const CVector3D& pos)
 	// プレイヤーの画像を読み込み
 	mp_image = CImage::CreateImage
 	(
-		"Frog.png",	// 画像ファイルのパス
+		"SmallFrog.png",	// 画像ファイルのパス
 		ANIM_DATA,		// アニメーションのデータ
 		CHIP_SIZE, CHIP_SIZE	// 1コマの幅と高さ
 	);

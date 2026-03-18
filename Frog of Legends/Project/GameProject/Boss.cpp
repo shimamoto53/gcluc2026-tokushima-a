@@ -265,7 +265,7 @@ void Boss::Update()
 	case EState::Return: StateReturn(); break;
 	case EState::Death:  StateDeath();  break;
 	}
-	float bodyX = SCREEN_WIDTH - 320;
+	float bodyX = SCREEN_WIDTH - 620;
 	float bodyY = SCREEN_HEIGHT / 2.25;
 
 	mp_bodyImage->SetPos(bodyX,bodyY);
